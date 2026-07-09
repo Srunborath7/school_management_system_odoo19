@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_school_adcademic_programs_list" model="ir.ui.view">
+        <field name="name">school.academic.program.list</field>
+        <field name="model">school.academic.program</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="department_ids"/>
+                <field name="academic_year_ids"/>
+                <field name="duration"/>
+                <field name="total_credits"/>
+                <field name="status"/>
+                <field name="description"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_school_adcademic_programs_form" model="ir.ui.view">
+        <field name="name">school.academic.program.form</field>
+        <field name="model">school.academic.program</field>
+        <field name="arch" type="xml">
+            <form string="Academic Program">
+                <header>
+                    <button name="action_active" type="object" string="Active" class="oe_highlight"
+                            invisible="status != 'draft'"/>
+                    <button name="action_completed" type="object" string="Complete" class="oe_highlight"
+                            invisible="status != 'active'"/>
+                    <button name="action_inactive" type="object" string="Inactive" invisible="status == 'inactive'"/>
+                    <button name="action_closed" type="object" string="Close" invisible="status != 'completed'"/>
+                    <button name="action_reset_draft" type="object" string="Reset" invisible="status == 'draft'"/>
+                    <field name="status" widget="statusbar" statusbar_visible="draft,active,completed,closed,inactive"/>
+                </header>
+                <sheet>
+                    <h1><field name="code"/></h1>
+                    <group>
+                        <field name="name"/>
+                        <field name="department_ids"/>
+                        <field name="academic_year_ids"/>
+                        <field name="duration"/>
+                        <field name="total_credits"/>
+                    </group>
+                    <notebook>
+                        <page string="Description">
+                            <field name="description"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+    <record id="view_academic_programs_kanban" model="ir.ui.view">
+        <field name="name">school.academic.program.kanban</field>
+        <field name="model">school.academic.program</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="department_ids"/>
+                <field name="academic_year_ids"/>
+                <field name="duration"/>
+                <field name="total_credits"/>
+                <field name="status"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click card border-0 shadow rounded-4 overflow-hidden">
+                            <div class="card-header text-center text-white py-4"
+                                 style="background: linear-gradient(135deg,#2d358e,#4f5bd5);border-radius: 24px 24px 0 0;box-shadow: 0 4px 12px rgba(0,0,0,.15);">
+                                <i class="fa fa-graduation-cap fa-3x me-2" title="Academic Program"/>
+                                <h4 class="md-0 fw-bold text-white p-2">
+                                    <field name="name"/>
+                                </h4>
+                                <small class="opacity-75">
+                                    Academic Program Information
+                                </small>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3 text-end text-white">
+                                    <span class="badge rounded-pill bg-primary fs-6 px-3 py-2">
+                                        <i class="fa fa-tag me-1" title="Tag"/>
+                                        <field name="code"/>
+                                    </span>
+                                </div>
+                                <div class="mb-2">
+                                    <i class="fa fa-university text-primary me-2" title="University"/>
+                                    <strong>Department:</strong>
+                                    <field name="department_ids"/>
+                                </div>
+                                <hr class="my-3"/>
+                                <div class="mb-2">
+                                    <i class="fa fa-calendar text-primary me-2" title="Calendar"/>
+                                    <strong>Academic Year:</strong>
+                                    <field name="academic_year_ids"/>
+                                </div>
+                                <div class="mb-2">
+                                    <i class="fa fa-hourglass-half text-primary me-2" title="Duration"/>
+                                    <strong>Duration:</strong>
+                                    <field name="duration"/>
+                                </div>
+                                <div class="mb-2">
+                                    <i class="fa fa-address-card text-primary me-2" title="Credit"/>
+                                    <strong>Total Credits:</strong>
+                                    <field name="total_credits"/>
+                                </div>
+                                <div class="mb-2"
+                                     decoration-info="status == 'draft'"
+                                     decoration-success="status == 'active' or status == 'completed'"
+                                     decoration-danger="status == 'inactive'"
+                                     decoration-warning="status == 'closed'">
+                                    <i class="fa fa-info-circle text-primary me-2" title="Status"/>
+                                    <strong>Status:</strong>
+                                    <field name="status"/>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-light text-center">
+                                <small class="text-muted">
+                                    <i class="fa fa-graduation-cap me-1" title="Graduation"/>
+                                    School Management System
+                                </small>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+<!--    <record id="view_academic_programs_search" model="ir.ui.view">-->
+<!--        <field name="name">school.academic.program.search</field>-->
+<!--        <field name="model">school.academic.program</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <search string="Academic Program">-->
+<!--                <field name="name"/>-->
+<!--                <field name="code"/>-->
+<!--                <field name="department_ids"/>-->
+<!--                <filter string="Draft" name="draft_program" domain="[('status','=','draft')]"/>-->
+<!--                <filter string="Active" name="active_program" domain="[('status','=','active')]"/>-->
+<!--                <filter string="Inactive" name="inactive_program" domain="[('status','=','inactive')]"/>-->
+<!--                <filter string="Closed" name="closed_program" domain="[('status','=','closed')]"/>-->
+<!--                <filter string="Completed" name="completed_program" domain="[('status','=','completed')]"/>-->
+<!--                <separator/>-->
+<!--                <group expand="1" string="Group By">-->
+<!--                    <filter string="Department" name="group_department" context="{'group_by' : 'department_ids'}"/>-->
+<!--                    <filter string="Academic Program Name" name="group_academic_program"-->
+<!--                            context="{'group_by' : 'name'}"/>-->
+<!--                </group>-->
+<!--                <searchpanel>-->
+<!--                    <field name="department_ids" string="Department" enable_counters="1"/>-->
+<!--                    <field name="status" string="Status" enable_counters="1"/>-->
+<!--                </searchpanel>-->
+<!--            </search>-->
+<!--        </field>-->
+<!--    </record>-->
+    <record id="action_school_acadamic_programs" model="ir.actions.act_window">
+        <field name="name">Academic Program</field>
+        <field name="res_model">school.academic.program</field>
+        <field name="view_mode">list,form,kanban</field>
+    </record>
+</odoo>

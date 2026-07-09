@@ -1,0 +1,75 @@
+<odoo>
+    <record id="view_school_room_list" model="ir.ui.view">
+        <field name="name">school.room.list</field>
+        <field name="model">school.room</field>
+        <field name="arch" type="xml">
+            <list string="Rooms">
+                <field name="name"/>
+                <field name="room_type_id"/>
+                <field name="floor"/>
+                <field name="building"/>
+                <field name="capacity"/>
+                <field name="status"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_school_room_form" model="ir.ui.view">
+        <field name="name">school.room.form</field>
+        <field name="model">school.room</field>
+        <field name="arch" type="xml">
+            <form string="Room">
+                <header>
+                    <button name="action_reserved" type="object" string="Reserve" class="btn-primary" invisible="status != 'available'"/>
+                    <button name="action_occupied" type="object" string="Occupied" class="btn-success" invisible="status != 'reserved'"/>
+                    <button name="action_maintenance" type="object" string="Maintenance" class="btn-warning" invisible="status != 'occupied'"/>
+                    <button name="action_available" type="object" string="Available" class="btn-info" invisible="status != 'maintenance'"/>
+                    <button name="action_inactive" type="object" string="Inactive" class="btn-secondary" invisible="status == 'inactive'"/>
+                    <button name="action_reset" type="object" string="Reset" invisible="status != 'inactive'"/>
+                    <field name="status" widget="statusbar" statusbar_visible="available,reserved,occupied,maintenance,inactive"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Room Name"/>
+                        </h1>
+                    </div>
+                    <div class="card p-3 mb-3">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div class="flex-grow-1 me-3">
+                                <field name="room_type_id"/>
+                            </div>
+                            <button name="action_open_room_type_modal" type="object" string="Create Room Type"
+                                    class="btn btn-primary"/>
+                        </div>
+                    </div>
+                    <group>
+                        <group string="Room Details">
+                            <field name="capacity"/>
+                            <field name="status"/>
+                        </group>
+                        <group string="Location">
+                            <field name="floor"/>
+                            <field name="building"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description">
+                            <field name="description"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="action_school_room" model="ir.actions.act_window">
+        <field name="name">Rooms</field>
+        <field name="res_model">school.room</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_school_student_registry_list" model="ir.ui.view">
+        <field name="name">school.student.registry.list</field>
+        <field name="model">school.student.registry</field>
+        <field name="arch" type="xml">
+            <list string="Students" decoration-info="status == 'graduated'" decoration-success="status == 'Enrolled'"
+                  decoration-danger="status == 'cancelled'" decoration-warning="status == 'cancelled'">
+                <field name="student_code"/>
+                <field name="name"/>
+                <field name="DOB"/>
+                <field name="calc_age"/>
+                <field name="gender"/>
+                <field name="phone"/>
+                <field name="email"/>
+                <field name="address"/>
+                <field name="enrolled_date"/>
+                <field name="status"/>
+                <field name="create_uid" groups="school_management_system.group_school_management_admin"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_school_student_registry_form" model="ir.ui.view">
+        <field name="name">school.student.registry.form</field>
+        <field name="model">school.student.registry</field>
+        <field name="arch" type="xml">
+            <form string="Student">
+                <header>
+                    <button name="action_enroll" type="object" string="Enroll" class="oe_highlight"
+                            invisible="status != 'draft'"/>
+                    <button name="action_graduate" type="object" string="Graduate" class="oe_highlight"
+                            invisible="status != 'enrolled'"/>
+                    <button name="action_cancel" type="object" string="Cancel" class="btn-danger"
+                            invisible="status == 'cancelled'"/>
+                    <button name="action_reset_draft" type="object" string="Reset to Draft"
+                            invisible="status != 'cancelled'"/>
+                    <field name="status" widget="statusbar" statusbar_visible="draft,enrolled,graduated,cancelled"/>
+                </header>
+                <sheet>
+                    <h2>
+                        <field name="student_code"/>
+                    </h2>
+                    <group>
+                        <group string="Student Info">
+                            <field name="name"/>
+                            <field name="DOB"/>
+                            <field name="gender"/>
+                            <field name="phone"/>
+                            <field name="email"/>
+                            <field name="address"/>
+                        </group>
+                        <group string="Academic Info">
+                            <field name="enrolled_date"/>
+                            <field name="status"/>
+                            <field name="create_uid"
+                                   groups="school_management_system.group_school_management_admin"/>
+                        </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+    <record id="view_school_student_registry_kanban" model="ir.ui.view">
+        <field name="name">school.student.registry.kanban</field>
+        <field name="model">school.student.registry</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="status">
+                <field name="name"/>
+                <field name="DOB"/>
+                <field name="enrolled_date"/>
+                <field name="calc_age"/>
+                <field name="status"/>
+                <field name="theme_primary"/>
+                <field name="text_color_primary"/>
+                <field name="theme_secondary"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click card border-0 shadow rounded-4 overflow-hidden">
+                            <div class="card-header text-center py-3 rounded" t-attf-style="background: linear-gradient(135deg,#{record.theme_primary.raw_value},#{record.theme_secondary.raw_value});
+                                    color: #{record.text_color_primary.raw_value};">
+                                <i class="fa fa-users fa-3x mb-2" title="Users"/>
+                                <h4 class="mb-0" t-attf-style="color:#{record.text_color_primary.raw_value}">
+                                    <field name="name"/>
+                                </h4>
+                                <small>Student Profile</small>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-2">
+                                    <i class="fa fa-calendar text-primary me-2" title="Calendar"/>
+                                    <strong>Date of Birth:</strong>
+                                    <field name="DOB"/>
+                                </div>
+                                <div class="mb-2">
+                                    <i class="fa fa-calendar me-2" title="Calendar"/>
+                                    <strong>Enrolled:</strong>
+                                    <field name="enrolled_date"/>
+                                </div>
+                                <div class="mb-2">
+                                    <i class="fa fa-calculator me-2" title="Calculate"/>
+                                    <strong>Calculate Age:</strong>
+                                    <field name="calc_age"/>
+                                </div>
+                                <hr/>
+                                <div class="text-center">
+                                    <strong>Status</strong>
+                                    <div class="mt-2">
+                                        <field name="status" widget="badge" decoration-muted="status == 'draft'"
+                                               decoration-success="status == 'enrolled'"
+                                               decoration-info="status == 'graduated'"
+                                               decoration-danger="status == 'cancelled'"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer text-center bg-light">
+                                <small class="text-muted">
+                                    <i class="fa fa-graduation-cap me-1"/>
+                                    School Management System
+                                </small>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <record id="view_school_student_registry_search" model="ir.ui.view">
+        <field name="name">school.student.registry.search</field>
+        <field name="model">school.student.registry</field>
+        <field name="arch" type="xml">
+            <search string="Search Students">
+                <field name="name"/>
+                <field name="student_code"/>
+                <field name="status"/>
+                <field name="gender"/>
+                <filter string="Draft" name="filter_draft" domain="[('status','=','draft')]"/>
+                <filter string="Enrolled" name="filter_enrolled" domain="[('status','=','enrolled')]"/>
+                <filter string="Graduated" name="filter_graduated" domain="[('status','=','graduated')]"/>
+                <filter string="Cancelled" name="filter_cancelled" domain="[('status','=','cancelled')]"/>
+                <filter string="Draft" name="filter_draft" domain="[('status','=','draft')]"/>
+                <filter string="Enrolled" name="filter_enrolled" domain="[('status','=','enrolled')]"/>
+                <filter string="Graduated" name="filter_graduated" domain="[('status','=','graduated')]"/>
+                <filter string="Cancelled" name="filter_cancelled" domain="[('status','=','cancelled')]"/>
+                <separator/>
+                <filter string="Group by Status" name="group_status" context="{'group_by': 'status'}"/>
+                <separator/>
+                <filter string="Group by Gender" name="group_gender" context="{'group_by': 'gender'}"/>
+                <searchpanel>
+                    <field name="status" string="Status"/>
+                    <field name="gender" string="Gender"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+    <record id="action_school_student_registry" model="ir.actions.act_window">
+        <field name="name">Students Registry</field>
+        <field name="res_model">school.student.registry</field>
+        <field name="view_mode">list,form,kanban</field>
+        <field name="search_view_id" ref="view_school_student_registry_search"/>
+    </record>
+</odoo>

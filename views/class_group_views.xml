@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_class_group_list" model="ir.ui.view">
+        <field name="name">school.class.group.list</field>
+        <field name="model">school.class.group</field>
+        <field name="arch" type="xml">
+            <list string="Class Group">
+                <field name="name"/>
+                <field name="room_id"/>
+                <field name="enrollment_id"/>
+                <field name="curriculum_id"/>
+                <field name="student_ids"/>
+                <field name="student_count"/>
+                <field name="status"/>
+                <field name="description"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_class_group_form" model="ir.ui.view">
+        <field name="name">class.group.form</field>
+        <field name="model">school.class.group</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+
+                    <group>
+                        <field name="name"/>
+                        <field name="room_id"/>
+                        <field name="curriculum_id"/>
+                        <field name="status"/>
+                        <field name="description"/>
+                    </group>
+                    <group>
+                        <div class="d-flex align-items-center rounded justify-content-between bg-primary text-white rounded-4 px-3 py-2 shadow-sm"
+                             style="min-width:140px;">
+                            <div class="d-flex align-items-center">
+                                <i class="fa fa-users me-2"/>
+                                Students
+                            </div>
+                            <span class="badge text-white fs-4">
+                                <field name="student_count"/>
+                            </span>
+                        </div>
+                    </group>
+                    <group string="Students">
+                        <field name="student_ids" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_class_group_kanban" model="ir.ui.view">
+        <field name="name">school.class.group.kanban</field>
+        <field name="model">school.class.group</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name"/>
+                <field name="room_id"/>
+                <field name="enrollment_id"/>
+                <field name="status"/>
+                <field name="description"/>
+                <template>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click card border-0 shadow rounded-4 overflow-hidden">
+                            <div class="card-header text-center  text-white"
+                                 style="background: linear-gradient(135deg,#2d358e,#4f5bd5);">
+                                <i class="fa fa-building-o me-2 fa-3x" title="Room"/>
+                                <h3 class="md-0 fw-bold text-white mt-2">
+                                    <field name="name"/>
+                                </h3>
+                                <small class="opacity-75">
+                                    Class Room Information
+                                </small>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3 text-end text-white">
+                                    <span class="badge rounded-pill bg-primary fs-6 px-3 py-2">
+                                        <i class="fa fa-person-shelter me-1" title="Floor"/>
+                                        <field name="room_id"/>
+                                    </span>
+                                </div>
+                                <div class="mb-2">
+                                    <i class="fa fa-users text-primary me-2" title="Capacity"/>
+                                    <strong>Capacity:</strong>
+                                    <field name="enrollment_id"/>
+                                </div>
+                                <hr class="my-3"/>
+                                <div class="mb-2"
+                                     decoration-info="status == 'draft'"
+                                     decoration-success="status == 'active' or status == 'completed'"
+                                     decoration-danger="status == 'inactive'"
+                                     decoration-warning="status == 'cancelled'">
+                                    <i class="fa fa-info-circle text-primary me-2" title="Status"/>
+                                    <strong>Status:</strong>
+                                    <field name="status"/>
+                                </div>
+                                <div class="mb-2">
+                                    <i class="fa fa-file-text-o me-2 text-primary" title="Description"/>
+                                    <strong>Description:</strong>
+                                    <field name="description"/>
+                                </div>
+                            </div>
+
+                            <div class="card-footer bg-light text-center">
+                                <small class="text-muted">
+                                    <i class="fa fa-graduation-cap me-1" title="Graduation"/>
+                                    School Management System
+                                </small>
+                            </div>
+                        </div>
+                    </t>
+                </template>
+            </kanban>
+        </field>
+    </record>
+<!--    <record id="view_class_group_search" model="ir.ui.view">-->
+<!--        <field name="name">school.class.group.search</field>-->
+<!--        <field name="model">school.class.group</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <search string="Class Group">-->
+<!--                <field name="name"/>-->
+<!--                <filter string="Draft" name="draft_program" domain="[('status','=','draft')]"/>-->
+<!--                <filter string="Active" name="active_program" domain="[('status','=','active')]"/>-->
+<!--                <filter string="Inactive" name="inactive_program" domain="[('status','=','inactive')]"/>-->
+<!--                <filter string="Closed" name="closed_program" domain="[('status','=','closed')]"/>-->
+<!--                <filter string="Completed" name="completed_program" domain="[('status','=','completed')]"/>-->
+<!--                <separator/>-->
+<!--                <searchpanel>-->
+<!--                    <field name="status" string="Status" enable_counters="1"/>-->
+<!--                </searchpanel>-->
+<!--            </search>-->
+<!--        </field>-->
+<!--    </record>-->
+    <record id="action_school_class_group" model="ir.actions.act_window">
+        <field name="name">Class Group</field>
+        <field name="res_model">school.class.group</field>
+        <field name="view_mode">list,form,kanban</field>
+    </record>
+</odoo>

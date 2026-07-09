@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Automated Action -->
+    <record id="automation_purchase_request_approved"
+            model="base.automation">
+        <field name="name">Purchase Request Approved</field>
+
+        <!-- Model -->
+        <field name="model_id"
+               ref="model_school_purchase_request"/>
+
+        <!-- Trigger when record is updated -->
+        <field name="trigger">on_write</field>
+
+        <!-- Execute only when state = approve -->
+        <field name="filter_domain">
+            [('state','=','approve')]
+        </field>
+
+        <!-- Execute Server Action -->
+        <field name="action_server_ids"
+               eval="[(4, ref('action_server_purchase_request_notification'))]"/>
+
+        <field name="active">True</field>
+
+    </record>
+
+</odoo>

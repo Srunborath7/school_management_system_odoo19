@@ -1,0 +1,25 @@
+<odoo>
+
+    <record id="view_room_type_form" model="ir.ui.view">
+        <field name="name">school.room.type.form</field>
+        <field name="model">school.room.type</field>
+        <field name="arch" type="xml">
+            <form string="Room Type">
+
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="description"/>
+                    </group>
+                </sheet>
+
+            </form>
+        </field>
+    </record>
+    <record id="action_room_type" model="ir.actions.act_window">
+        <field name="name">Room Types</field>
+        <field name="res_model">school.room.type</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

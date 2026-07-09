@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="email_purchase_request_approved" model="mail.template">
+        <field name="name">Purchase Request Approved</field>
+        <field name="model_id" ref="model_school_purchase_request"/>
+        <field name="subject">Purchase Request Approved - {{ object.name }}</field>
+        <field name="email_to">{{ object.requester_id.email }}</field>
+        <field name="email_from">{{ user.email}}</field>
+        <field name="body_html" type="html">
+            <div style="background:#f4f6f9;padding:40px;font-family:Arial,Helvetica,sans-serif;">
+
+                <table align="center" width="650" cellpadding="0" cellspacing="0"
+                       style="background:#ffffff;border-radius:10px;overflow:hidden;border:1px solid #dddddd;">
+
+                    <!-- Header -->
+                    <tr>
+                        <td style="background:#875A7B;padding:30px;text-align:center;color:#ffffff;">
+                            <h1 style="margin:0;font-size:28px;">
+                                Purchase Request Approved
+                            </h1>
+
+                            <p style="margin-top:10px;font-size:15px;">
+                                Your request has been successfully approved.
+                            </p>
+                        </td>
+                    </tr>
+
+                    <!-- Body -->
+                    <tr>
+                        <td style="padding:35px;">
+
+                            <p style="font-size:16px;">
+                                Hello
+                                <strong>
+                                    <t t-out="object.requester_id.name"/>
+                                </strong>
+                                ,
+                            </p>
+
+                            <p style="line-height:24px;">
+                                We are pleased to inform you that your purchase request has been approved.
+                            </p>
+
+                            <table width="100%" cellpadding="10"
+                                   style="border-collapse:collapse;margin-top:25px;border:1px solid #e5e5e5;">
+
+                                <tr style="background:#fafafa;">
+                                    <td width="35%">
+                                        <strong>Request Number</strong>
+                                    </td>
+                                    <td>
+                                        <t t-out="object.name"/>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>Requester</strong>
+                                    </td>
+                                    <td>
+                                        <t t-out="object.requester_id.name"/>
+                                    </td>
+                                </tr>
+
+                                <tr style="background:#fafafa;">
+                                    <td>
+                                        <strong>Approved By</strong>
+                                    </td>
+                                    <td>
+                                        <t t-out="object.approved_by.name"/>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>Approval Date</strong>
+                                    </td>
+                                    <td>
+                                        <t t-out="object.approval_date"/>
+                                    </td>
+                                </tr>
+
+                                <tr style="background:#fafafa;">
+                                    <td>
+                                        <strong>Status</strong>
+                                    </td>
+                                    <td>
+                                        <span style="
+                            background:#28a745;
+                            color:#ffffff;
+                            padding:5px 12px;
+                            border-radius:20px;
+                            font-size:13px;
+                            font-weight:bold;">
+                                            APPROVED
+                                        </span>
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                            <!-- Button -->
+                            <div style="text-align:center;margin-top:35px;">
+
+                                <a t-att-href="object.get_base_url() + '/web#id=%s&amp;model=school.purchase.request&amp;view_type=form' % object.id"
+                                   style="
+                        background:#875A7B;
+                        color:#ffffff;
+                        text-decoration:none;
+                        padding:14px 30px;
+                        border-radius:6px;
+                        display:inline-block;
+                        font-weight:bold;
+                        font-size:15px;">
+                                    View Purchase Request
+                                </a>
+
+                            </div>
+
+                            <p style="margin-top:35px;line-height:24px;">
+                                Thank you for using the School Purchase Management System.
+                            </p>
+
+                        </td>
+                    </tr>
+
+                    <!-- Footer -->
+                    <tr>
+                        <td style="
+                            background:#f7f7f7;
+                            text-align:center;
+                            padding:20px;
+                            color:#888888;
+                            font-size:12px;">
+                            <strong>School Purchase Management System</strong>
+
+                            <br/>
+                            <br/>
+
+                            This is an automated email from Odoo.
+                            <br/>
+                            Please do not reply directly to this email.
+
+                        </td>
+                    </tr>
+
+                </table>
+
+            </div>
+        </field>
+
+    </record>
+</odoo>

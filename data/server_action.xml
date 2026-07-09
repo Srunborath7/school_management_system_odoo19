@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="action_server_purchase_request_notification"
+            model="ir.actions.server">
+
+        <field name="name">
+            Purchase Request Notification
+        </field>
+
+        <field name="model_id"
+               ref="model_school_purchase_request"/>
+
+        <field name="state">code</field>
+
+        <field name="code"><![CDATA[
+            for rec in records:
+                rec.message_post(
+                    body="Purchase Request Approved."
+                )
+
+                rec.write({
+                    'approved_by': env.user.id,
+                    'approval_date': datetime.date.today(),
+                })
+
+                template = env.ref(
+                    'school_management_system.email_purchase_request_approved',
+                    raise_if_not_found=False
+                )
+
+                if template:
+                    template.send_mail(rec.id, force_send=True)
+                    ]]>
+        </field>
+
+    </record>
+
+</odoo>

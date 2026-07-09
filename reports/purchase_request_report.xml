@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+
+    <record id="action_purchase_request_report" model="ir.actions.report">
+
+        <field name="name">Purchase Request PDF</field>
+
+        <field name="model">school.purchase.request</field>
+
+        <field name="report_type">qweb-pdf</field>
+
+        <field name="report_name">school_management_system.purchase_request_report_template</field>
+
+        <field name="report_file">school_management_system.purchase_request_report_template</field>
+
+        <field name="binding_model_id" ref="model_school_purchase_request"/>
+
+        <field name="binding_type">report</field>
+
+    </record>
+
+</odoo>

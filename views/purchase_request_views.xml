@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_purchase_request_free" model="ir.ui.view">
+        <field name="name">school.purchase.request.list</field>
+        <field name="model">school.purchase.request</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="priority" widget="priority"/>
+                <field name="name"/>
+                <field name="requester_id"/>
+                <field name="department"/>
+                <field name="request_date"/>
+                <field name="approval_date"/>
+                <field name="approved_by"/>
+                <field name="total_amount"/>
+            </list>
+        </field>
+</record>
+    <record id="view_purchase_request_form" model="ir.ui.view">
+        <field name="name">school.purchase.request.form</field>
+        <field name="model">school.purchase.request</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="%(action_purchase_request_report)d" type="action" string="Print Purchase Request" class="btn-primary"/>
+                    <button name="action_submit" type="object" string="Submit" invisible="state != 'draft'" class="btn-primary"/>
+                    <button name="action_approve" type="object" string="Approve" invisible="state != 'submit'" class="btn-success"/>
+                    <button name="action_reject" type="object" string="Reject" invisible="state != 'submit'" class="btn-danger"/>
+                    <button name="action_draft" type="object" string="Reset to Draft" invisible="state == 'draft'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submit,approve,reject"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <span class="o_form_label" invisible="state != 'draft'">Draft Purchase Request</span>
+                        <span class="o_form_label" invisible="state == 'draft'">Purchase Request</span>
+                        <h1 class="d-flex">
+                            <field name="priority" widget="priority" class="me-3"/>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="requester_id"/>
+                        <field name="department"/>
+                        <field name="request_date"/>
+                    </group>
+                    <notebook>
+                        <page string="Products">
+                            <field name="line_ids">
+                                <list editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="quantity"/>
+                                    <field name="price"/>
+                                    <field name="subtotal"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                    <group class="oe_subtotal_footer">
+                        <field name="total_amount" readonly="1"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="action_purchase_request" model="ir.actions.act_window">
+        <field name="name">Purchase Requests</field>
+        <field name="res_model">school.purchase.request</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="email_purchase_order_approved" model="mail.template">
+        <field name="name">Purchase Order Approved</field>
+        <field name="model_id" ref="purchase.model_purchase_order"/>
+        <field name="subject">Purchase Order Approved - {{ object.name }}</field>
+        <field name="email_from">{{ user.email }}</field>
+        <field name="email_to">{{ object.requester_id.email }}</field>
+
+        <field name="body_html" type="html">
+            <div style="margin:0;padding:30px;background:#f4f6f9;font-family:Arial,Helvetica,sans-serif;">
+
+                <table width="100%" cellpadding="0" cellspacing="0"
+                       style="max-width:700px;margin:auto;background:#ffffff;border-radius:10px;overflow:hidden;border:1px solid #e5e5e5;">
+
+                    <!-- Header -->
+                    <tr>
+                        <td style="background:#875A7B;color:#ffffff;padding:25px;text-align:center;">
+                            <h2 style="margin:0;">Purchase Order Approved</h2>
+                            <p style="margin-top:8px;font-size:14px;">
+                                Your purchase order has been successfully approved.
+                            </p>
+                        </td>
+                    </tr>
+
+                    <!-- Body -->
+                    <tr>
+                        <td style="padding:30px;">
+
+                            <p style="font-size:16px;">
+                                Hello
+                                <strong>
+                                    <t t-out="object.requester_id.name"/>
+                                </strong>
+                                ,
+                            </p>
+
+                            <p>
+                                We are pleased to inform you that your purchase order has been
+                                approved.
+                            </p>
+
+                            <table width="100%" cellpadding="8" cellspacing="0"
+                                   style="border-collapse:collapse;border:1px solid #dddddd;margin-top:20px;">
+
+                                <tr style="background:#f8f8f8;">
+                                    <td width="35%">
+                                        <strong>Purchase Order</strong>
+                                    </td>
+                                    <td>
+                                        <t t-out="object.name"/>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>Approved By</strong>
+                                    </td>
+                                    <td>
+                                        <t t-out="object.approved_by.name"/>
+                                    </td>
+                                </tr>
+
+                                <tr style="background:#f8f8f8;">
+                                    <td>
+                                        <strong>Approval Date</strong>
+                                    </td>
+                                    <td>
+                                        <t t-out="object.approved_date"/>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <strong>Status</strong>
+                                    </td>
+                                    <td>
+                                        <span style="color:#28a745;font-weight:bold;">
+                                            Approved
+                                        </span>
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                            <!-- Button -->
+                            <div style="text-align:center;margin-top:35px;">
+
+                                <a t-att-href="object.get_base_url() + '/web#id=%s&amp;model=purchase.order&amp;view_type=form' % object.id"
+                                   style="
+                            background:#875A7B;
+                            color:#ffffff;
+                            text-decoration:none;
+                            padding:14px 30px;
+                            border-radius:6px;
+                            display:inline-block;
+                            font-weight:bold;
+                       ">
+                                    View Purchase Order
+                                </a>
+
+                            </div>
+
+                            <p style="margin-top:35px;">
+                                If you have any questions regarding this purchase order,
+                                please contact the purchasing department.
+                            </p>
+
+                            <hr style="margin:30px 0;border:none;border-top:1px solid #dddddd;"/>
+
+                            <p style="font-size:12px;color:#888888;text-align:center;">
+                                This is an automated email generated by Odoo.
+                                <br/>
+                                Please do not reply directly to this message.
+                            </p>
+
+                        </td>
+                    </tr>
+
+                </table>
+
+            </div>
+
+        </field>
+    </record>
+</odoo>

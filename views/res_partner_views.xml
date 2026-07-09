@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Form View: add fields in a dedicated, labeled section -->
+    <record id="view_partner_form_inherit" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit.school</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <group string="School Information" name="school_info">
+                    <group>
+                        <field name="customer_type"/>
+                        <field name="customer_code"/>
+                    </group>
+                    <group>
+                        <field name="credit_limit" widget="monetary"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Tree View -->
+    <record id="view_partner_list_inherit" model="ir.ui.view">
+        <field name="name">res.partner.list.inherit.school</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <list string="Partners" decoration-muted="not active">
+                <field name="active" invisible="1"/>
+                <field name="name"/>
+                <field name="customer_type"/>
+                <field name="customer_code"/>
+                <field name="credit_limit" widget="monetary" sum="Total Credit Limit"/>
+                <field name="email"/>
+                <field name="phone"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Search View: filters + group by -->
+<!--    <record id="view_partner_search_inherit" model="ir.ui.view">-->
+<!--        <field name="name">res.partner.search.inherit.school</field>-->
+<!--        <field name="model">res.partner</field>-->
+<!--        <field name="inherit_id" ref="base.view_res_partner_filter"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <xpath expr="//search" position="inside">-->
+<!--                <field name="customer_type"/>-->
+<!--                <field name="customer_code"/>-->
+<!--                <filter string="Has Credit Limit" name="has_credit_limit" domain="[('credit_limit', '>', 0)]"/>-->
+<!--                <group expand="0" string="Group By">-->
+<!--                    <filter string="Customer Type" name="group_by_customer_type" context="{'group_by': 'customer_type'}"/>-->
+<!--                </group>-->
+<!--            </xpath>-->
+<!--        </field>-->
+<!--    </record>-->
+
+    <!-- Action -->
+    <record id="action_res_partner" model="ir.actions.act_window">
+        <field name="name">Purchase Requests</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_group_by_customer_type': 0}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first partner
+            </p>
+        </field>
+    </record>
+
+</odoo>

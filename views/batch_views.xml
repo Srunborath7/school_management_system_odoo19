@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_school_subject_list" model="ir.ui.view">
+        <field name="name">school.batch.list</field>
+        <field name="model">school.batch</field>
+        <field name="arch" type="xml">
+            <list string="Subject">
+                <field name="name"/>
+                <field name="academic_program_ids"/>
+                <field name="academic_year_ids"/>
+                <field name="status"/>
+                <field name="note"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_school_subject_form" model="ir.ui.view">
+        <field name="name">school.batch.form</field>
+        <field name="model">school.batch</field>
+        <field name="arch" type="xml">
+            <form string="Subject">
+                <header>
+                    <button name="action_active" type="object" string="Activate" class="oe_highlight"
+                            invisible="status != 'draft'"/>
+                    <button name="action_completed" type="object" string="Complete" class="oe_highlight"
+                            invisible="status != 'active'"/>
+                    <button name="action_inactive" type="object" string="Deactivate"
+                            invisible="status in ('inactive', 'completed')"/>
+                    <button name="action_reset_draft" type="object" string="Reset to Draft"
+                            invisible="status == 'draft'"/>
+                    <field name="status" widget="statusbar" statusbar_visible="draft,active,inactive,completed"/>
+
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="academic_program_ids"/>
+                        <field name="academic_year_ids"/>
+                        <field name="status"/>
+                        <field name="note"/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+    <record id="view_school_subject_kanban" model="ir.ui.view">
+        <field name="name">school.batch.kanban</field>
+        <field name="model">school.batch</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="academic_year_ids">
+                <field name="name"/>
+                <field name="academic_program_ids"/>
+                <field name="academic_year_ids"/>
+                <field name="status"/>
+                <field name="note"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click card border-0 shadow rounded-4 overflow-hidden">
+                            <div class="card-header text-center text-white py-4"
+                                 style="background: linear-gradient(135deg,#2d358e,#4f5bd5);border-radius: 24px 24px 0 0;box-shadow: 0 4px 12px rgba(0,0,0,.15);">
+                                <i class="fa fa-book fa-3x mb-2" title="Book"/>
+                                <h4 class="mb-0 fw-bold text-white">
+                                    <field name="name"/>
+                                </h4>
+                                <small class="opacity-75">
+                                    Course Information
+                                </small>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3 text-end text-white">
+                                    <span class="badge rounded-pill bg-primary fs-6 px-3 py-2">
+                                        <i class="fa fa-clock-o me-1" title="Clock"/>
+                                        <field name="academic_year_ids"/>
+                                    </span>
+                                </div>
+                                <div class="mb-2">
+                                    <i class="fa fa-graduation-cap text-primary me-2" title="academic"/>
+                                    <strong>Academic Program:</strong>
+                                    <field name="academic_program_ids"/>
+                                </div>
+                                <div class="mb-2">
+                                    <i class="fa fa-hourglass-half text-primary me-2" title="status"/>
+                                    <strong>Status:</strong>
+                                    <field name="status"/>
+                                </div>
+                                <hr class="my-3"/>
+                                <div class="mt-3">
+                                    <i class="fa fa-quote-left text-primary me-2" title="quote"/>
+                                    <strong>Description</strong>
+
+                                    <blockquote class="blockquote mt-2 ps-3 border-start">
+                                        <field name="note"/>
+                                    </blockquote>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-light text-center">
+                                <small class="text-muted">
+                                    <i class="fa fa-graduation-cap me-1" title="Graduation"/>
+                                    School Management System
+                                </small>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <record id="view_school_batch_search" model="ir.ui.view">
+        <field name="name">school.batch.search</field>
+        <field name="model">school.batch</field>
+        <field name="arch" type="xml">
+
+            <search string="Search Batch">
+
+                <!-- SEARCH FIELDS -->
+                <field name="academic_program_ids"/>
+                <field name="academic_year_ids"/>
+                <field name="status"/>
+
+                <filter string="Program"
+                        name="filter_program"
+                        domain="[]"
+                        context="{'group_by': 'academic_program_ids'}"/>
+
+                <filter string="Academic Year"
+                        name="filter_year"
+                        domain="[]"
+                        context="{'group_by': 'academic_year_ids'}"/>
+
+                <filter string="Active Only"
+                        name="filter_active"
+                        domain="[('status', '=', 'active')]"/>
+
+                <filter string="Draft"
+                        name="filter_draft"
+                        domain="[('status', '=', 'draft')]"/>
+                <searchpanel>
+                    <field name="status" string="Status" enable_conters="1"/>
+                    <field name="academic_program_ids" string="Academic Program" enable_conters="1"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+    <record id="action_school_batch" model="ir.actions.act_window">
+        <field name="name">Batch</field>
+        <field name="res_model">school.batch</field>
+        <field name="view_mode">list,form,kanban</field>
+    </record>
+
+</odoo>

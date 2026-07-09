@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+
+    <record id="purchase_analysis_xlsx"
+            model="ir.actions.report">
+
+        <field name="name">
+            Purchase Analysis XLSX
+        </field>
+
+
+        <field name="model">
+            purchase.order
+        </field>
+
+
+        <field name="report_type">
+            xlsx
+        </field>
+
+
+        <field name="report_name">
+            school_management.purchase_analysis_xlsx
+        </field>
+
+
+        <field name="report_file">
+            school_management.purchase_analysis_xlsx
+        </field>
+
+    </record>
+
+
+</odoo>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="seq_school_course" model="ir.sequence">
+        <field name="name">Course Sequence</field>
+        <field name="code">school.course</field>
+        <field name="prefix">CS</field>
+        <field name="padding">4</field>
+    </record>
+
+    <record id="seq_school_student_registry" model="ir.sequence">
+        <field name="name">Student Sequence</field>
+        <field name="code">school.student.registry</field>
+        <field name="prefix">STR/%(year)s/%(month)s/</field>
+        <field name="padding">5</field>
+        <field name="number_increment">1</field>
+        <field name="number_next">1</field>
+    </record>
+
+    <record id="seq_school_enrollment" model="ir.sequence">
+        <field name="name">Enrollment Sequence</field>
+        <field name="code">school.enrollment</field>
+        <field name="prefix">ENR/%(year)s/%(month)s/</field>
+        <field name="padding">5</field>
+        <field name="number_next">1</field>
+    </record>
+
+    <record id="seq_school_teacher" model="ir.sequence">
+        <field name="name">Teacher Sequence</field>
+        <field name="code">school.teacher</field>
+        <field name="prefix">TEC/</field>
+        <field name="padding">3</field>
+        <field name="number_next">1</field>
+    </record>
+
+     <record id="seq_school_curriculum" model="ir.sequence">
+        <field name="name">Curriculum Sequence</field>
+        <field name="code">school.curriculum</field>
+         <field name="prefix">SCR</field>
+        <field name="padding">5</field>
+        <field name="number_next">1</field>
+    </record>
+
+    <record id="seq_school_academic_program" model="ir.sequence">
+        <field name="name">Academic Program Code</field>
+        <field name="code">school.academic.program</field>
+        <field name="padding">3</field>
+    </record>
+
+     <record id="seq_purchase_request" model="ir.sequence">
+        <field name="name">Purchase Request</field>
+        <field name="code">school.purchase.request</field>
+        <field name="prefix">PRC/</field>
+        <field name="padding">5</field>
+    </record>
+</odoo>

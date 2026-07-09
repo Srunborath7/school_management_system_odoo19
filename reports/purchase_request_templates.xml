@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="purchase_request_report_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="text-center">
+                            <h1 style="font-size:26px;">
+                                Purchase Request
+                            </h1>
+                            <p style="font-size:16px;">
+                                Reference:
+                                <strong>
+                                    <span t-field="doc.name"/>
+                                </strong>
+                            </p>
+                        </div>
+                        <br/>
+                        <table class="table table-bordered"
+                               style="width:100%;">
+                            <tr>
+                                <td style="width:25%;">
+                                    <strong>Requester</strong>
+                                </td>
+                                <td>
+                                    <span t-field="doc.requester_id"/>
+                                </td>
+                                <td style="width:25%;">
+                                    <strong>Request Date</strong>
+                                </td>
+
+                                <td>
+                                    <span t-field="doc.request_date"/>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Status</strong>
+                                </td>
+                                <td>
+                                    <t t-if="doc.state == 'draft'">
+                                        <span>
+                                            Draft
+                                        </span>
+                                    </t>
+                                    <t t-elif="doc.state == 'submit'">
+                                        Submitted
+                                    </t>
+                                    <t t-elif="doc.state == 'approve'">
+                                        Approved
+                                    </t>
+                                    <t t-elif="doc.state == 'reject'">
+                                        Rejected
+                                    </t>
+                                </td>
+                                <td>
+                                    <strong>Department</strong>
+                                </td>
+
+                                <td>
+                                    <span t-field="doc.department"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <h3>
+                            Requested Items
+                        </h3>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th style="width:5%;">
+                                        No
+                                    </th>
+
+                                    <th>
+                                        Product
+                                    </th>
+
+                                    <th>
+                                        Quantity
+                                    </th>
+
+                                    <th>
+                                        Unit Price
+                                    </th>
+
+                                    <th>
+                                        Sub Total
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+                            <tbody>
+                                <t t-set="no" t-value="1"/>
+                                <t t-foreach="doc.line_ids"
+                                   t-as="line">
+                                    <tr>
+                                        <td class="text-center">
+
+                                            <t t-out="no"/>
+
+                                            <t t-set="no"
+                                               t-value="no + 1"/>
+
+                                        </td>
+
+                                        <td>
+
+                                            <span t-field="line.product_id"/>
+
+                                        </td>
+
+
+                                        <td class="text-center">
+
+                                            <span t-field="line.quantity"/>
+
+                                        </td>
+
+
+                                        <td class="text-end">
+
+                                            <span t-field="line.price"/>
+
+                                        </td>
+
+
+                                        <td class="text-end">
+
+                                            <span t-field="line.subtotal"/>
+
+                                        </td>
+
+
+                                    </tr>
+
+
+                                </t>
+
+
+                            </tbody>
+
+
+                        </table>
+
+
+                        <!-- TOTAL -->
+
+                        <table class="table"
+                               style="width:40%;margin-left:auto;">
+
+
+                            <tr>
+
+                                <td>
+                                    <strong>Total Amount</strong>
+                                </td>
+
+                                <td class="text-end">
+
+                                    <strong>
+                                        <span t-field="doc.total_amount"/>
+                                    </strong>
+
+                                </td>
+
+                            </tr>
+
+
+                        </table>
+
+
+                        <br/>
+
+
+                        <!-- APPROVAL -->
+
+
+                        <t t-if="doc.approved_by">
+
+
+                            <h3>
+                                Approval Information
+                            </h3>
+
+
+                            <table class="table table-bordered">
+
+
+                                <tr>
+
+                                    <td>
+                                        <strong>
+                                            Approved By
+                                        </strong>
+                                    </td>
+
+                                    <td>
+                                        <span t-field="doc.approved_by"/>
+                                    </td>
+
+                                </tr>
+
+
+                                <tr>
+
+                                    <td>
+                                        <strong>
+                                            Approved Date
+                                        </strong>
+                                    </td>
+
+                                    <td>
+                                        <span t-field="doc.approval_date"/>
+                                    </td>
+
+                                </tr>
+
+
+                                <tr>
+
+                                    <td>
+                                        <strong>
+                                            Notes
+                                        </strong>
+                                    </td>
+
+                                </tr>
+                            </table>
+
+
+                        </t>
+
+
+                        <br/>
+                        <br/>
+
+
+                        <!-- SIGNATURE -->
+
+                        <table style="width:100%;">
+
+                            <tr>
+
+
+                                <td class="text-center">
+
+                                    Prepared By
+
+                                    <br/>
+                                    <br/>
+                                    <br/>
+
+                                    ____________________
+
+                                    <br/>
+
+                                    <span t-field="doc.requester_id"/>
+
+
+                                </td>
+
+
+                                <td class="text-center">
+
+                                    Approved By
+
+                                    <br/>
+                                    <br/>
+                                    <br/>
+
+                                    ____________________
+
+                                    <br/>
+
+                                    <span t-field="doc.approved_by"/>
+
+
+                                </td>
+
+
+                            </tr>
+
+
+                        </table>
+
+
+                        <br/>
+
+
+                        <p style="font-size:12px;text-align:center;">
+
+                            This document is generated automatically by
+                            School Management System.
+
+                        </p>
+
+
+                    </div>
+
+
+                </t>
+
+
+            </t>
+
+
+        </t>
+
+
+    </template>
+
+
+</odoo>

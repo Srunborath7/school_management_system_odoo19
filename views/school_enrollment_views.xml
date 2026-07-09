@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_school_enrollment_list" model="ir.ui.view">
+        <field name="name">school.enrollment.list</field>
+        <field name="model">school.enrollment</field>
+        <field name="arch" type="xml">
+            <list string="School Enrollment">
+               <field name="name"/>
+                <field name="batch_id"/>
+                <field name="student_id"/>
+                <field name="curriculum_id"/>
+                <field name="academic_program"/>
+                <field name="major"/>
+                <field name="academic_year"/>
+                <field name="academic_year_level"/>
+                <field name="description"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_school_enrollment_form" model="ir.ui.view">
+        <field name="name">school.enrollment.form</field>
+        <field name="model">school.enrollment</field>
+        <field name="arch" type="xml">
+            <form string="School Enrollment">
+                <header>
+                    <button name="action_active" type="object" string="Active" class="oe_highlight"
+                            invisible="status != 'draft'"/>
+                    <button name="action_inactive" type="object" string="Inactive" invisible="status != 'active'"/>
+                    <button name="action_closed" type="object" string="Close" invisible="status != 'inactive'"/>
+                    <button name="action_reset_draft" type="object" string="Reset" invisible="status == 'draft'"/>
+                    <field name="status" widget="statusbar" statusbar_visible="draft,active,closed,inactive"/>
+                </header>
+                <sheet>
+                    <group string="Student Enrollment Info">
+                        <field name="name"/>
+                        <field name="batch_id"/>
+                        <field name="student_id"/>
+                        <field name="curriculum_id"/>
+                        <field name="description"/>
+                    </group>
+                    <group string="Academic Info">
+                        <field name="academic_program"/>
+                        <field name="major"/>
+                        <field name="academic_year"/>
+                        <field name="academic_year_level"/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+    <record id="view_school_enrollment_kanban" model="ir.ui.view">
+        <field name="name">school.enrollment.kanban</field>
+        <field name="model">school.enrollment</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name"/>
+                <field name="batch_id"/>
+                <field name="student_id"/>
+                <field name="curriculum_id"/>
+                <field name="description"/>
+                <field name="academic_program"/>
+                <field name="major"/>
+                <field name="academic_year"/>
+                <field name="academic_year_level"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click card border-0 shadow rounded-4 overflow-hidden">
+                            <div class="card-header text-center text-white py-4"
+                                 style="background: linear-gradient(135deg,#2d358e,#4f5bd5);border-radius: 24px 24px 0 0;box-shadow: 0 4px 12px rgba(0,0,0,.15);">
+                                <i class="fa fa-university me-2 fa-3x" title="School"/>
+                                <h4 class="md-0 fw-bold text-white mt-2">
+                                    <field name="name"/>
+                                </h4>
+                                <small class="opacity-75">
+                                    Student Enrollment Information
+                                </small>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3 text-end text-white">
+                                    <span class="badge rounded-pill bg-primary fs-6 px-3 py-2">
+                                        <i class="fa fa-person-shelter me-1" title="Floor"/>
+                                       <field name="status"/>
+                                    </span>
+                                </div>
+                                <div class="mb-2">
+                                    <i class="fa fa-user text-primary me-2" title="Capacity"/>
+                                    <strong>Student Name: </strong>
+                                    <field name="student_id"/>
+                                </div>
+                                <div class="mb-2">
+                                    <i class="fa fa-bookmark text-primary me-2" title="Capacity"/>
+                                    <strong>Curriculum:</strong>
+                                    <field name="curriculum_id"/>
+                                </div>
+                                <div class="mb-2">
+                                    <i class="fa fa-object-group text-primary me-2" title="Capacity"/>
+                                    <strong>Batch: </strong>
+                                    <field name="batch_id"/>
+                                </div>
+                                <div class="mb-2">
+                                    <i class="fa fa-book text-primary me-2" title="Capacity"/>
+                                    <strong>Academic Program: </strong>
+                                    <field name="academic_program"/>
+                                </div>
+                                <div class="mb-2">
+                                    <i class="fa fa-calendar text-primary me-2" title="Capacity"/>
+                                    <strong>Academic Year: </strong>
+                                    <field name="academic_year"/>
+                                </div>
+                                <div class="mb-2">
+                                    <i class="fa fa-graduation-cap text-primary me-2" title="Capacity"/>
+                                    <strong>Academic Year Level: </strong>
+                                    <field name="academic_year_level"/>
+                                </div>
+                                <hr class="my-3"/>
+                                <div class="mt-3">
+                                    <i class="fa fa-quote-left text-primary me-2" title="quote"/>
+                                    <strong>Description</strong>
+
+                                    <blockquote class="blockquote mt-2 ps-3 border-start">
+                                        <field name="description"/>
+                                    </blockquote>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-light text-center">
+                                <small class="text-muted">
+                                    <i class="fa fa-graduation-cap me-1" title="Graduation"/>
+                                    School Management System
+                                </small>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+<!--    <record id="view_school_enrollment_search" model="ir.ui.view">-->
+<!--        <field name="name">school.enrollment.search</field>-->
+<!--        <field name="model">school.enrollment</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <search string="Search School Enrollment">-->
+<!--                <field name="name"/>-->
+<!--                <field name="curriculum_id"/>-->
+<!--                <field name="status"/>-->
+<!--                <field name="batch_id"/>-->
+<!--                <filter string="Draft" name="draft" domain="[('status','=','draft')]"/>-->
+<!--                <filter string="Active" name="active" domain="[('status','=','active')]"/>-->
+<!--                <filter string="Inactive" name="inactive" domain="[('status','=','inactive')]"/>-->
+<!--                <filter string="Closed" name="closed" domain="[('status','=','closed')]"/>-->
+<!--                <filter string="Completed" name="completed" domain="[('status','=','completed')]"/>-->
+<!--                <separator/>-->
+<!--                <group expand="0" string="Group By">-->
+<!--                    <filter string="Status" name="group_status" context="{'group_by':'status'}"/>-->
+<!--                    <filter string="Curriculum" name="group_start_date" context="{'group_by':'curriculum_id'}"/>-->
+<!--                </group>-->
+<!--                <searchpanel>-->
+<!--                    <field name="status" string="Status" enable_counters="1"/>-->
+<!--                    <field name="curriculum_id" string="Curriculum" enable_counters="1"/>-->
+<!--                    <field name="batch_id" string="Batch" enable_counters="1"/>-->
+<!--                </searchpanel>-->
+<!--            </search>-->
+<!--        </field>-->
+<!--    </record>-->
+    <record id="action_school_enrollment" model="ir.actions.act_window">
+        <field name="name">School Enrollment</field>
+        <field name="res_model">school.enrollment</field>
+        <field name="view_mode">list,form,kanban</field>
+    </record>
+</odoo>
