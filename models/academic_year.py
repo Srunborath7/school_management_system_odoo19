@@ -6,8 +6,8 @@ class AcademicYear(models.Model):
     _inherit = ['mail.thread']
 
     name = fields.Char(string="Name", tracking=True)
-    start_date = fields.Date(required=True, tracking=True)
-    end_date = fields.Date(required=True , tracking=True)
+    start_date = fields.Date(string="Start Date",required=True, tracking=True)
+    end_date = fields.Date(string="End Date",required=True , tracking=True)
     status = fields.Selection([
         ('draft', 'Draft'),
         ('active', 'Active'),

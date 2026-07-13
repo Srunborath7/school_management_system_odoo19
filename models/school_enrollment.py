@@ -5,7 +5,7 @@ class SchoolEnrollment(models.Model):
     _description = "School Enrollment"
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
-    name = fields.Char(string="Name", default="New")
+    name = fields.Char(string="Name", default="New" , tracking=True, readonly=True)
     student_id = fields.Many2one('school.student.registry', string="Student")
     batch_id = fields.Many2one('school.batch', string="Batch")
     curriculum_id = fields.Many2one('school.curriculum', string="Curriculum")
@@ -23,10 +23,16 @@ class SchoolEnrollment(models.Model):
 
     @api.model
     def create(self, vals):
-        if vals.get("name", "New") == "New":
-            vals["name"] = self.env["ir.sequence"].next_by_code(
-                "school.enrollment"
-            ) or "New"
+        # if vals.get("name", "New") == "New":
+        #     vals["name"] = self.env["ir.sequence"].next_by_code(
+        #         "school.enrollment"
+        #     ) or "New"
+        # return super().create(vals)
+        for val in vals:
+            if val.get("name", "New") == "New":
+                val["name"] = self.env["ir.sequence"].next_by_code(
+                     "school.enrollment"
+                ) or "New"
         return super().create(vals)
 
     def action_active(self):

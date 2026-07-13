@@ -24,16 +24,15 @@
         <field name="arch" type="xml">
             <form string="School Enrollment">
                 <header>
-                    <button name="action_active" type="object" string="Active" class="oe_highlight"
-                            invisible="status != 'draft'"/>
+                    <button name="action_active" type="object" string="Active" class="oe_highlight" invisible="status != 'draft'"/>
                     <button name="action_inactive" type="object" string="Inactive" invisible="status != 'active'"/>
                     <button name="action_closed" type="object" string="Close" invisible="status != 'inactive'"/>
                     <button name="action_reset_draft" type="object" string="Reset" invisible="status == 'draft'"/>
                     <field name="status" widget="statusbar" statusbar_visible="draft,active,closed,inactive"/>
                 </header>
                 <sheet>
+                    <h1><field name="name"/></h1>
                     <group string="Student Enrollment Info">
-                        <field name="name"/>
                         <field name="batch_id"/>
                         <field name="student_id"/>
                         <field name="curriculum_id"/>

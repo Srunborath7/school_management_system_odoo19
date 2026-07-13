@@ -16,36 +16,45 @@ class ClassGroup(models.Model):
     description = fields.Text(string="Description")
     student_ids = fields.Many2many('school.student.registry',compute="_compute_students",string="Students")
     student_count = fields.Integer(string="Student Count",compute="_compute_students")
+
     @api.depends('curriculum_id')
     def _compute_students(self):
+        Enrollment = self.env['school.enrollment']
+
         for rec in self:
+            students = self.env['school.student.registry']
+
             if rec.curriculum_id:
-                enrollments = self.env['school.enrollment'].search([
+                enrollments = Enrollment.search([
                     ('curriculum_id', '=', rec.curriculum_id.id)
                 ])
-                rec.student_ids = enrollments.mapped('student_id')
-                rec.student_count = len(rec.student_ids)
-            else:
-                rec.student_ids = False
+                students = enrollments.mapped('student_id')
 
-    @api.model
-    def create(self, vals):
-        if not vals.get('name') or vals.get('name') == "New Class":
-            curriculum = False
-            if vals.get('curriculum_id'):
-                curriculum = self.env['school.curriculum'].browse(vals['curriculum_id'])
-            if curriculum and curriculum.major_id:
-                prefix = ''.join(
-                    word[0].upper()
-                    for word in curriculum.major_id.name.split()
-                )
-                count = self.search_count([
-                    ('curriculum_id.major_id', '=', curriculum.major_id.id)
-                ]) + 1
-                vals['name'] = f"{prefix}G{count:03d}"
-            else:
-                vals['name'] = "GRP001"
-        return super().create(vals)
+            rec.student_ids = students
+            rec.student_count = len(students)
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if not vals.get('name') or vals.get('name') == "New Class":
+                curriculum = False
+                if vals.get('curriculum_id'):
+                    curriculum = self.env['school.curriculum'].browse(vals['curriculum_id'])
+
+                if curriculum and curriculum.major_id:
+                    prefix = ''.join(
+                        word[0].upper()
+                        for word in curriculum.major_id.name.split()
+                    )
+                    count = self.search_count([
+                        ('curriculum_id.major_id', '=', curriculum.major_id.id)
+                    ]) + 1
+
+                    vals['name'] = f"{prefix}G{count:03d}"
+                else:
+                    vals['name'] = "GRP001"
+
+        return super().create(vals_list)
 
     def action_view_students(self):
         self.ensure_one()

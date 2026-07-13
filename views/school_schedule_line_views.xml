@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+        <record id="school_schedule_line_calendar_view" model="ir.ui.view">
+            <field name="name">school.schedule.line.calendar</field>
+            <field name="model">school.schedule.line</field>
+            <field name="arch" type="xml">
+                <calendar
+                        string="Student Timetable"
+                        date_start="start_datetime"
+                        date_stop="end_datetime"
+                        color="teacher_id"
+                        mode="week">
+                    <field name="course_id"/>
+                    <field name="teacher_id"/>
+                    <field name="room_id"/>
+                    <field name="day"/>
+                    <field name="schedule_id"/>
+
+                </calendar>
+            </field>
+        </record>
+
+        <record id="school_schedule_line_list_view" model="ir.ui.view">
+            <field name="name">school.schedule.line.list</field>
+            <field name="model">school.schedule.line</field>
+            <field name="arch" type="xml">
+                <list string="Schedule Lines">
+
+                    <field name="schedule_id"/>
+                    <field name="day"/>
+
+                    <field name="course_id"/>
+                    <field name="teacher_id"/>
+                    <field name="room_id"/>
+
+                    <field name="start_time" widget="float_time"/>
+                    <field name="end_time" widget="float_time"/>
+                    <field name="duration" widget="float_time"/>
+
+                </list>
+            </field>
+        </record>
+
+        <record id="school_schedule_line_form_view" model="ir.ui.view">
+            <field name="name">school.schedule.line.form</field>
+            <field name="model">school.schedule.line</field>
+            <field name="arch" type="xml">
+                <form string="Schedule Line">
+
+                    <sheet>
+
+                        <group>
+
+                            <group>
+                                <field name="schedule_id"/>
+
+                                <field name="day"/>
+
+                                <field name="course_id"/>
+
+                                <field name="teacher_id"/>
+
+                                <field name="room_id"/>
+
+                            </group>
+
+                            <group string="Time">
+
+                                <field name="start_time"
+                                       widget="float_time"/>
+
+                                <field name="end_time"
+                                       widget="float_time"/>
+
+                                <field name="duration"
+                                       widget="float_time"
+                                       readonly="1"/>
+
+                            </group>
+
+                        </group>
+
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="school_schedule_line_search_view" model="ir.ui.view">
+            <field name="name">school.schedule.line.search</field>
+            <field name="model">school.schedule.line</field>
+            <field name="arch" type="xml">
+
+                <search string="Search Schedule">
+
+                    <field name="course_id"/>
+                    <field name="teacher_id"/>
+                    <field name="room_id"/>
+                    <field name="schedule_id"/>
+
+                    <separator/>
+
+                    <filter string="Monday"
+                            name="monday"
+                            domain="[('day','=','monday')]"/>
+
+                    <filter string="Tuesday"
+                            name="tuesday"
+                            domain="[('day','=','tuesday')]"/>
+
+                    <filter string="Wednesday"
+                            name="wednesday"
+                            domain="[('day','=','wednesday')]"/>
+
+                    <filter string="Thursday"
+                            name="thursday"
+                            domain="[('day','=','thursday')]"/>
+
+                    <filter string="Friday"
+                            name="friday"
+                            domain="[('day','=','friday')]"/>
+
+                    <filter string="Teacher"
+                            name="group_teacher"
+                            context="{'group_by':'teacher_id'}"/>
+
+                    <filter string="Course"
+                            name="group_course"
+                            context="{'group_by':'course_id'}"/>
+
+                    <filter string="Room"
+                            name="group_room"
+                            context="{'group_by':'room_id'}"/>
+
+                    <filter string="Day"
+                            name="group_day"
+                            context="{'group_by':'day'}"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="school_schedule_line_action" model="ir.actions.act_window">
+            <field name="name">Timetable</field>
+            <field name="res_model">school.schedule.line</field>
+            <field name="view_mode">calendar,list,form</field>
+            <field name="search_view_id" ref="school_schedule_line_search_view"/>
+        </record>
+</odoo>

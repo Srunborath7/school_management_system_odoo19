@@ -39,13 +39,10 @@ class StudentRegistry(models.Model):
     theme_secondary = fields.Char(compute='_compute_theme_colors')
     text_color_primary = fields.Char(compute='_compute_theme_colors')
     text_color_secondary = fields.Char(compute='_compute_theme_colors')
-    _sql_constraints = [
-        (
-            "student_code_unique",
-            "UNIQUE(student_code)",
-            "Student Code must be unique!",
-        ),
-    ]
+    _student_code_unique = models.Constraint(
+        "UNIQUE(student_code)",
+        "Student Code must be unique!",
+    )
     def action_enroll(self):
         for student in self:
             if not student.email:

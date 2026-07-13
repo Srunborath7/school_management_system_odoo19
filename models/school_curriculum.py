@@ -22,6 +22,17 @@ class SchoolCurriculum(models.Model):
         ('inactive', 'Inactive'),
         ('closed', 'Closed'),
     ], default='draft', tracking=True)
+    start_date = fields.Date(
+        related="academic_year_id.start_date",
+        string="Start Date",
+        readonly=True
+    )
+
+    end_date = fields.Date(
+        related="academic_year_id.end_date",
+        string="End Date",
+        readonly=True
+    )
 
     @api.depends('enrollment_ids.student_id')
     def _compute_students(self):

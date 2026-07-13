@@ -8,7 +8,8 @@ from . import academic_program
 from . import school_academic_year_level
 from . import class_group
 from . import batch
-from . import time_table_slot
+from . import school_schedule
+from . import school_schedule_line
 from . import room
 from . import school_major
 from . import school_curriculum

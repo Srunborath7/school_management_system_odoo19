@@ -10,12 +10,15 @@ class Course(models.Model):
     creation_date = fields.Datetime(string="Create Date",default=fields.Datetime.now, tracking=True)
     credits = fields.Integer(string="Credits",default=3,tracking=True)
     code = fields.Char(string="Course Code",readonly=True,required=True, tracking=True)
-    _sql_constraints = [(
-        'code_name_unique',
-        'UNIQUE (code)',
-        'Course Code must be unique',
-    )]
-
+    # _sql_constraints = [(
+    #     'code_name_unique',
+    #     'UNIQUE (code)',
+    #     'Course Code must be unique',
+    # )]
+    _student_code_unique = models.Constraint(
+        "UNIQUE(code)",
+        "Course Code must be unique!",
+    )
     @api.model_create_multi
     def create(self, vals_list):
 

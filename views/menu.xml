@@ -1,159 +1,168 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <menuitem
-        id="menu_school_management_root"
-        name="School Management System"
-        web_icon="school_management_system,static/logo.png"/>
-        sequence="35"/>
+            id="menu_school_management_root"
+            name="School Management System"
+            web_icon="school_management_system,static/logo.png"/>
+    sequence="35"/>
     <menuitem
-        id="menu_student_registry"
-        name="Student Registry"
-        parent="menu_school_management_root"
-        action="action_school_student_registry"
-        groups="group_school_management_admin,group_school_management_teacher"
-        sequence="1"/>
+            id="menu_student_registry"
+            name="Student Registry"
+            parent="menu_school_management_root"
+            action="action_school_student_registry"
+            groups="group_school_management_admin,group_school_management_teacher"
+            sequence="1"/>
     <menuitem
-        id="menu_school_enroll"
-        name="School Enrollment"
-        parent="menu_school_management_root"
-        groups="school_management_system.group_school_management_admin,school_management_system.group_school_management_teacher"
-        sequence="2"/>
+            id="menu_school_enroll"
+            name="School Enrollment"
+            parent="menu_school_management_root"
+            groups="school_management_system.group_school_management_admin,school_management_system.group_school_management_teacher"
+            sequence="2"/>
     <menuitem
-        id="menu_school_enrollment"
-        name="Enrollment"
-        parent="menu_school_enroll"
-        action="action_school_enrollment"
-        sequence="1"/>
+            id="menu_school_enrollment"
+            name="Enrollment"
+            parent="menu_school_enroll"
+            action="action_school_enrollment"
+            sequence="1"/>
     <menuitem
-        id="menu_school_curriculum"
-        name="School Curriculum"
-        parent="menu_school_enroll"
-        action="action_school_curriculum"
-        sequence="2"/>
+            id="menu_school_curriculum"
+            name="School Curriculum"
+            parent="menu_school_enroll"
+            action="action_school_curriculum"
+            sequence="2"/>
     <menuitem
-        id="menu_school_academic"
-        name="Academic"
-        parent="menu_school_management_root"
-        groups="school_management_system.group_school_management_admin,school_management_system.group_school_management_teacher"
-        sequence="3"/>
+            id="menu_school_academic"
+            name="Academic"
+            parent="menu_school_management_root"
+            groups="school_management_system.group_school_management_admin,school_management_system.group_school_management_teacher"
+            sequence="3"/>
     <menuitem
-        id="menu_school_batch"
-        name="Batch"
-        parent="menu_school_academic"
-        action="action_school_batch"
-        sequence="1"/>
+            id="menu_school_batch"
+            name="Batch"
+            parent="menu_school_academic"
+            action="action_school_batch"
+            sequence="1"/>
     <menuitem
-        id="menu_school_Major"
-        name="Major"
-        parent="menu_school_academic"
-        action="action_school_major"
-        sequence="2"
+            id="menu_school_Major"
+            name="Major"
+            parent="menu_school_academic"
+            action="action_school_major"
+            sequence="2"
     />
     <menuitem
-        id="menu_school_course"
-        name="Course"
-        parent="menu_school_academic"
-        action="action_school_course"
-        sequence="3"
+            id="menu_school_course"
+            name="Course"
+            parent="menu_school_academic"
+            action="action_school_course"
+            sequence="3"
     />
     <menuitem
-        id="menu_school_academic_year_level"
-        name="Academic Year Level"
-        parent="menu_school_academic"
-        action="action_school_acedemic_year_level"
-        sequence="5"
+            id="menu_school_academic_year_level"
+            name="Academic Year Level"
+            parent="menu_school_academic"
+            action="action_school_acedemic_year_level"
+            sequence="5"
     />
     <menuitem
-        id="menu_school_academic_year"
-        name="Academic Year"
-        parent="menu_school_academic"
-        action="action_school_acedemic_year"
-        sequence="6"/>
+            id="menu_school_academic_year"
+            name="Academic Year"
+            parent="menu_school_academic"
+            action="action_school_acedemic_year"
+            sequence="6"/>
     <menuitem
-        id="menu_school_academic_program"
-        name="Academic Program"
-        parent="menu_school_academic"
-        action="action_school_acadamic_programs"
-        sequence="7"/>
-
+            id="menu_school_academic_program"
+            name="Academic Program"
+            parent="menu_school_academic"
+            action="action_school_acadamic_programs"
+            sequence="7"/>
     <menuitem
-        id="menu_school_timetable_slot"
-        name="Time Table"
-        parent="menu_school_management_root"
-        action="action_timetable_slot"
-        sequence="4"
+            id="menu_school_department"
+            name="Department"
+            parent="menu_school_management_root"
+            action="action_school_department"
+            sequence="5"
     />
     <menuitem
-        id="menu_school_department"
-        name="Department"
-        parent="menu_school_management_root"
-        action="action_school_department"
-        sequence="5"
-    />
-     <menuitem
-        id="menu_school_teacher"
-        name="Teacher"
-        parent="menu_school_management_root"
-        action="action_school_teacher"
-        sequence="6"
+            id="menu_school_teacher"
+            name="Teacher"
+            parent="menu_school_management_root"
+            action="action_school_teacher"
+            sequence="6"
     />
     <menuitem
-        id="menu_school_class"
-        name="Class"
-        parent="menu_school_management_root"
-        sequence="7"
+            id="menu_school_class"
+            name="Class"
+            parent="menu_school_management_root"
+            sequence="7"
     />
     <menuitem
-        id="menu_school_class_room"
-        name="Class Group"
-        parent="menu_school_class"
-        action="action_school_class_group"
-        sequence="1"
+            id="menu_school_class_room"
+            name="Class Group"
+            parent="menu_school_class"
+            action="action_school_class_group"
+            sequence="1"
     />
     <menuitem
-        id="menu_school_room"
-        name="Room"
-        parent="menu_school_class"
-        action="action_school_room"
-        sequence="2"
+            id="menu_school_room"
+            name="Room"
+            parent="menu_school_class"
+            action="action_school_room"
+            sequence="2"
     />
     <menuitem
-        id="menu_school_purchase"
-        name = "Purchase"
-        parent="menu_school_management_root"
-        sequence="10"/>
+            id="menu_school_purchase"
+            name="Purchase"
+            parent="menu_school_management_root"
+            sequence="10"/>
     <menuitem
-        id="menu_school_purchase_sub"
-        name="Purchase"
-        parent="menu_school_purchase"
-        action="action_purchase_request"
-        sequence="1"/>
-     <menuitem
-        id="menu_school_purchase_order"
-        name="Purchase Order"
-        parent="menu_school_purchase"
-        action="action_purchase_order"
-        sequence="2"/>
-     <menuitem
-        id="menu_school_res_partner"
-        name="Partner"
-        parent="menu_school_purchase"
-        action="action_res_partner"
-        sequence="3"
+            id="menu_school_purchase_sub"
+            name="Purchase"
+            parent="menu_school_purchase"
+            action="action_purchase_request"
+            sequence="1"/>
+    <menuitem
+            id="menu_school_purchase_order"
+            name="Purchase Order"
+            parent="menu_school_purchase"
+            action="action_purchase_order"
+            sequence="2"/>
+    <menuitem
+            id="menu_school_res_partner"
+            name="Partner"
+            parent="menu_school_purchase"
+            action="action_res_partner"
+            sequence="3"
     />
     <menuitem
-        id="menu_school_purchase_analysis_report"
-        name="Purchase Analysis"
-        parent="menu_school_purchase"
-        action="action_purchase_analysis_report"
-        sequence="4"
+            id="menu_school_purchase_analysis_report"
+            name="Purchase Analysis"
+            parent="menu_school_purchase"
+            action="action_purchase_analysis_report"
+            sequence="4"
     />
     <menuitem
-        id="menu_school_setting"
-        name="Configuration"
-        parent="menu_school_management_root"
-        action="action_school_setting"
-        sequence="99"
+            id="menu_school_schedule_root"
+            name="School Schedules"
+            parent="menu_school_management_root"
+            sequence="90"/>
+    <menuitem
+            id ="menu_school_schedule"
+            name ="Schedule"
+            parent="menu_school_schedule_root"
+            action="school_schedule_action"
+            sequence="1"/>
+    <menuitem
+            id ="menu_school_schedule_line"
+            name ="Schedule Line"
+            action="school_schedule_line_action"
+            parent="menu_school_schedule_root"
+            sequence="2"/>
+    <menuitem
+            id="menu_school_setting"
+            name="Configuration"
+            parent="menu_school_management_root"
+            action="action_school_setting"
+            sequence="99"
     />
 
 </odoo>

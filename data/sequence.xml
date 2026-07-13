@@ -52,4 +52,15 @@
         <field name="prefix">PRC/</field>
         <field name="padding">5</field>
     </record>
+
+     <record id="seq_school_timetable" model="ir.sequence">
+        <field name="name">School Timetable</field>
+        <field name="code">school.timetable</field>
+        <field name="prefix">TT/%(year)s/</field>
+        <field name="padding">4</field>
+        <field name="number_increment">1</field>
+        <field name="number_next">1</field>
+        <field name="implementation">standard</field>
+    </record>
+
 </odoo>
