@@ -1,19 +1,14 @@
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
+from datetime import datetime, timedelta
 
 
 class SchoolScheduleLine(models.Model):
     _name = "school.schedule.line"
-    _description = "School Schedule Detail"
+    _description = "Schedule Line"
+
     _order = "day,start_time"
-
-    schedule_id = fields.Many2one(
-        "school.schedule",
-        string="Schedule",
-        required=True,
-        ondelete="cascade",
-    )
-
+    schedule_id = fields.Many2one("school.schedule", string="Schedule", required=True, ondelete="cascade", )
     day = fields.Selection(
         [
             ("monday", "Monday"),
@@ -24,117 +19,80 @@ class SchoolScheduleLine(models.Model):
             ("saturday", "Saturday"),
             ("sunday", "Sunday"),
         ],
-        string="Day",
         required=True,
     )
+    course_id = fields.Many2one("school.course", string="Course", required=True, )
+    teacher_id = fields.Many2one("school.teacher", string="Teacher", required=True, )
+    room_id = fields.Many2one("school.room", string="Room", required=True, )
+    start_time = fields.Float(string="Start Time", required=True, )
+    end_time = fields.Float(string="End Time", required=True, )
+    duration = fields.Float(compute="_compute_duration", store=True, )
+    start_datetime = fields.Datetime(compute="_compute_datetime", store=True, )
+    end_datetime = fields.Datetime(compute="_compute_datetime", store=True, )
 
-    course_id = fields.Many2one(
-        "school.course",
-        string="Course",
-        required=True,
-    )
-
-    teacher_id = fields.Many2one(
-        "school.teacher",
-        string="Teacher",
-        required=True,
-    )
-
-    room_id = fields.Many2one(
-        "school.room",
-        string="Room",
-        required=True,
-    )
-
-    start_time = fields.Float(
-        string="Start Time",
-        required=True,
-    )
-
-    end_time = fields.Float(
-        string="End Time",
-        required=True,
-    )
-
-    duration = fields.Float(
-        string="Duration",
-        compute="_compute_duration",
-        store=True,
-    )
-    start_datetime = fields.Datetime(
-        string="Start",
-        compute="_compute_datetime",
-        store=True,
-    )
-
-    end_datetime = fields.Datetime(
-        string="End",
-        compute="_compute_datetime",
-        store=True,
-    )
     @api.depends("start_time", "end_time")
     def _compute_duration(self):
         for rec in self:
-            rec.duration = max(rec.end_time - rec.start_time, 0)
+            rec.duration = (rec.end_time - rec.start_time)
 
-    @api.constrains("start_time", "end_time")
+    @api.depends("schedule_id.curriculum_id.academic_year_id.start_date", "day", "start_time", "end_time", )
+    def _compute_datetime(self):
+        day_mapping = {
+            "monday": 0,
+            "tuesday": 1,
+            "wednesday": 2,
+            "thursday": 3,
+            "friday": 4,
+            "saturday": 5,
+            "sunday": 6,
+        }
+
+        for rec in self:
+            rec.start_datetime = False
+            rec.end_datetime = False
+            if not rec.schedule_id:
+                continue
+            academic_year = (rec.schedule_id.curriculum_id.academic_year_id)
+            if not academic_year:
+                continue
+            if not academic_year.start_date:
+                continue
+            start_date = fields.Date.to_date(academic_year.start_date)
+
+            # Find correct weekday
+            target_day = day_mapping.get(rec.day)
+            if target_day is None:
+                continue
+            days_difference = (target_day - start_date.weekday()) % 7
+            class_date = (start_date + timedelta(days=days_difference))
+            start_hour = int(rec.start_time)
+            start_minute = int((rec.start_time % 1) * 60)
+            end_hour = int(rec.end_time)
+
+            end_minute = int(
+                (rec.end_time % 1) * 60
+            )
+
+            rec.start_datetime = datetime(
+                class_date.year,
+                class_date.month,
+                class_date.day,
+                start_hour,
+                start_minute,
+            )
+
+            rec.end_datetime = datetime(
+                class_date.year,
+                class_date.month,
+                class_date.day,
+                end_hour,
+                end_minute,
+            )
+
+    @api.constrains("start_time","end_time")
     def _check_time(self):
         for rec in self:
             if rec.end_time <= rec.start_time:
                 raise ValidationError(
-                    "End Time must be greater than Start Time."
-                )
-
-    @api.constrains(
-        "teacher_id",
-        "day",
-        "start_time",
-        "end_time",
-    )
-    def _check_teacher_conflict(self):
-        for rec in self:
-            if not rec.teacher_id:
-                continue
-
-            conflict = self.search(
-                [
-                    ("id", "!=", rec.id),
-                    ("teacher_id", "=", rec.teacher_id.id),
-                    ("day", "=", rec.day),
-                    ("start_time", "<", rec.end_time),
-                    ("end_time", ">", rec.start_time),
-                ],
-                limit=1,
-            )
-
-            if conflict:
-                raise ValidationError(
-                    "Teacher already has another class during this time."
-                )
-
-    @api.constrains(
-        "room_id",
-        "day",
-        "start_time",
-        "end_time",
-    )
-    def _check_room_conflict(self):
-        for rec in self:
-            if not rec.room_id:
-                continue
-
-            conflict = self.search(
-                [
-                    ("id", "!=", rec.id),
-                    ("room_id", "=", rec.room_id.id),
-                    ("day", "=", rec.day),
-                    ("start_time", "<", rec.end_time),
-                    ("end_time", ">", rec.start_time),
-                ],
-                limit=1,
-            )
-
-            if conflict:
-                raise ValidationError(
-                    "Room is already occupied during this time."
+                    "End time must be greater than start time."
                 )

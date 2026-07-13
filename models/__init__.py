@@ -10,6 +10,7 @@ from . import class_group
 from . import batch
 from . import school_schedule
 from . import school_schedule_line
+from . import school_schedule_session
 from . import room
 from . import school_major
 from . import school_curriculum

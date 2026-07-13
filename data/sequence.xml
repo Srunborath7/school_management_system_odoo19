@@ -63,4 +63,10 @@
         <field name="implementation">standard</field>
     </record>
 
+     <record id="seq_school_schedule" model="ir.sequence">
+        <field name="name">School Schedule</field>
+        <field name="code">school.schedule</field>
+        <field name="prefix">SSC/</field>
+        <field name="padding">5</field>
+    </record>
 </odoo>

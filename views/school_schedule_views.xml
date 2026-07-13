@@ -5,11 +5,23 @@
         <field name="model">school.schedule</field>
         <field name="arch" type="xml">
             <form string="School Schedule">
+                <header>
+
+                    <button
+                        name="action_generate_sessions"
+                        type="object"
+                        string="Generate Sessions"
+                        class="btn-primary"/>
+
+
+                </header>
                 <sheet>
+                    <h1><field name="name"/></h1>
                     <group>
-                        <field name="name"/>
                         <field name="curriculum_id"/>
                         <field name="class_group_id"/>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
                         <field name="state"/>
                     </group>
                     <notebook>
@@ -22,6 +34,17 @@
                                     <field name="room_id"/>
                                     <field name="start_time" widget="float_time"/>
                                     <field name="end_time" widget="float_time"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Students">
+                            <field name="student_ids" readonly="1">
+                                <list>
+                                    <field name="student_code"/>
+                                    <field name="name"/>
+                                    <field name="gender"/>
+                                    <field name="phone"/>
+                                    <field name="email"/>
                                 </list>
                             </field>
                         </page>

@@ -158,6 +158,12 @@
             parent="menu_school_schedule_root"
             sequence="2"/>
     <menuitem
+            id ="menu_school_schedule_session"
+            name ="Schedule Session"
+            action="school_schedule_session_action"
+            parent="menu_school_schedule_root"
+            sequence="3"/>
+    <menuitem
             id="menu_school_setting"
             name="Configuration"
             parent="menu_school_management_root"
