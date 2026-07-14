@@ -1,4 +1,5 @@
-from odoo import fields, models
+from odoo import fields, models, api
+from odoo.exceptions import ValidationError
 
 class Batch(models.Model):
     _name = 'school.batch'
@@ -15,6 +16,13 @@ class Batch(models.Model):
         ('inactive', 'Inactive'),
         ('completed', 'Completed'),
     ])
+
+    @api.constrains("name")
+    def _check_unique_name(self):
+        for rec in self:
+            existing_record = self.search([('name', '=', rec.name)], limit=1)
+            if existing_record:
+                raise ValidationError("Batch name already exists!")
 
     def action_active(self):
         self.write({'status': 'active'})

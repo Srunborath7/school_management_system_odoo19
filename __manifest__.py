@@ -37,6 +37,7 @@
         'views/school_schedule_views.xml',
         'views/school_schedule_line_views.xml',
         'views/school_schedule_session_views.xml',
+        'views/school_attendance_views.xml',
         'views/academic_program_views.xml',
         'views/academic_year_views.xml',
         'views/academic_year_level_views.xml',

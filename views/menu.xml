@@ -164,6 +164,12 @@
             parent="menu_school_schedule_root"
             sequence="3"/>
     <menuitem
+        id="school_attendance_menu"
+        name="Attendance"
+        parent="menu_school_management_root"
+        action="school_attendance_action"
+        sequence="30"/>
+    <menuitem
             id="menu_school_setting"
             name="Configuration"
             parent="menu_school_management_root"

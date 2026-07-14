@@ -17,7 +17,6 @@
         <field name="arch" type="xml">
             <list string="Class Sessions">
                 <field name="schedule_id"/>
-                <field name="schedule_line_id"/>
                 <field name="curriculum_ids"/>
                 <field name="course_id"/>
                 <field name="teacher_id"/>

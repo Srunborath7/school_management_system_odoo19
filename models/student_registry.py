@@ -2,7 +2,7 @@ from odoo import fields, models, api
 from datetime import date
 from odoo.exceptions import ValidationError
 from odoo.exceptions import UserError
-
+import re
 
 class StudentRegistry(models.Model):
     _name = 'school.student.registry'
@@ -139,3 +139,14 @@ class StudentRegistry(models.Model):
                 ) or "New"
 
         return super().create(vals_list)
+
+    @api.constrains("email")
+    def _check_email(self):
+        email_pattern = r'^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$'
+        for rec in self:
+            if rec.email:
+                if not re.match(email_pattern, rec.email):
+                    raise ValidationError(
+                        "Please enter a valid email address.\n"
+                        "Example: student@example.com"
+                    )

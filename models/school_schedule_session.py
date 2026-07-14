@@ -1,3 +1,5 @@
+from openpyxl.worksheet import related
+
 from odoo import models, fields, api
 
 class SchoolScheduleSession(models.Model):
@@ -18,7 +20,7 @@ class SchoolScheduleSession(models.Model):
     teacher_id = fields.Many2one(related="schedule_line_id.teacher_id",string="Teacher",store=True,readonly=True,)
     room_id = fields.Many2one(related="schedule_line_id.room_id",string="Room",store=True,readonly=True,)
     day = fields.Selection(related="schedule_line_id.day",string="Day",store=True,readonly=True,)
-    curriculum_ids = fields.Many2one("school.curriculum",string="Curriculum",store=True,readonly=True,)
+    curriculum_ids = fields.Many2one("school.curriculum",related="schedule_id.curriculum_id",string="Curriculum",store=True,readonly=True,)
     @api.depends("schedule_line_id.day")
     def _compute_color(self):
         day_colors = {
