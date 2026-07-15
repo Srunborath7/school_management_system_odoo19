@@ -5,11 +5,13 @@ class SchoolAttendance(models.Model):
     _description = "School Attendance"
 
     name = fields.Char(string="Attendance",default="New",required=True,)
-    group_class_id = fields.Many2one("school.class.group",string="Class Group",required=True,)
+    group_class_id = fields.Many2one("school.class.group",string="Class Group",required=True,store=True)
     student_ids = fields.Many2many("school.student.registry",string="Students",)
     curriculum_id = fields.Many2one("school.curriculum",string="Curriculum",readonly=True,)
     academic_year_id = fields.Many2one("school.academic.year",string="Academic Year",readonly=True,)
     session_id = fields.Many2one("school.schedule.session",string="Session")
+    start_datetime = fields.Datetime( related="session_id.start_datetime", string="Date of Attendance",readonly=True, store=True)
+    end_datetime = fields.Datetime(related="session_id.end_datetime", string="Date of Attendance", readonly=True, store=True)
     course_id = fields.Many2one("school.course",string="Course",readonly=True,)
     teacher_id = fields.Many2one("school.teacher",string="Teacher",readonly=True,)
     room_id = fields.Many2one("school.room",string="Room",readonly=True,)

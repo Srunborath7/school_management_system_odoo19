@@ -18,6 +18,7 @@
             <list string="Class Sessions">
                 <field name="schedule_id"/>
                 <field name="curriculum_ids"/>
+                <field name="class_group_id"/>
                 <field name="course_id"/>
                 <field name="teacher_id"/>
                 <field name="room_id"/>

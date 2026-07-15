@@ -10,6 +10,7 @@ class SchoolScheduleSession(models.Model):
 
     _rec_name = "course_id"
     schedule_id = fields.Many2one("school.schedule",string="Schedule",required=True,ondelete="cascade",index=True,)
+    class_group_id = fields.Many2one("school.class.group",related="schedule_id.class_group_id",string="Class",store=True,readonly=True,)
     color = fields.Integer(string="Color Index",compute="_compute_color",store=True,)
     schedule_line_id = fields.Many2one("school.schedule.line",string="Schedule Line",required=True,ondelete="cascade",index=True,)
     start_datetime = fields.Datetime(string="Start Time",required=True,)

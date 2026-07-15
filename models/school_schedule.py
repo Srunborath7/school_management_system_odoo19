@@ -16,7 +16,7 @@ class SchoolSchedule(models.Model):
     academic_year_id = fields.Many2one("school.academic.year",string="Academic Year",related="curriculum_id.academic_year_id",store=True,readonly=True,tracking=True,)
     start_date = fields.Date(string="Start Date",related="academic_year_id.start_date",store=True,readonly=True,)
     end_date = fields.Date(string="End Date",related="academic_year_id.end_date",store=True,readonly=True,)
-    class_group_id = fields.Many2one("school.class.group",string="Class Group",required=True,tracking=True,)
+    class_group_id = fields.Many2one("school.class.group",string="Class Group",compute="_compute_class_group",store=True,)
     line_ids = fields.One2many("school.schedule.line","schedule_id",string="Timetable", )
     session_ids = fields.One2many("school.schedule.session","schedule_id",string="Sessions",)
     state = fields.Selection(
@@ -27,6 +27,15 @@ class SchoolSchedule(models.Model):
         ],default="draft",tracking=True,)
     student_ids = fields.Many2many("school.student.registry", related="curriculum_id.student_ids", string="Students", readonly=True,)
 
+    @api.depends("curriculum_id")
+    def _compute_class_group(self):
+        ClassGroup = self.env["school.class.group"]
+
+        for rec in self:
+            rec.class_group_id = ClassGroup.search(
+                [("curriculum_id", "=", rec.curriculum_id.id)],
+                limit=1,
+            )
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
