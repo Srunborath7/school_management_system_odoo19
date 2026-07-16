@@ -2,9 +2,6 @@ from odoo import models, fields, api
 from datetime import datetime, timedelta
 import pytz
 
-from odoo.orm.decorators import readonly
-
-
 class SchoolSchedule(models.Model):
 
     _name = "school.schedule"

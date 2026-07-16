@@ -7,10 +7,10 @@
             <list string="Attendances">
                 <field name="name"/>
                 <field name="session_id"/>
-                <field name="academic_year_id"/>
-                <field name="curriculum_id"/>
-                <field name="course_id"/>
-                <field name="teacher_id"/>
+                <field name="academic_year_id" force_save="1"/>
+                <field name="curriculum_id" force_save="1"/>
+                <field name="course_id" force_save="1"/>
+                <field name="teacher_id" force_save="1"/>
                 <field name="start_datetime"/>
             </list>
         </field>
@@ -23,7 +23,6 @@
             <form string="Attendance">
                 <sheet>
                     <h1><field name="name"/></h1>
-
                         <group string="Class Information">
                             <field name="group_class_id"/>
                             <field name="session_id" domain="[('schedule_id.class_group_id','==',group_class_id)]"/>/>
@@ -40,6 +39,7 @@
                         <page string="Students Attendance">
                             <field name="line_ids">
                                 <list editable="bottom">
+                                    <field name="date"/>
                                     <field name="student_id"/>
                                     <field name="gender"/>
                                     <field name="phone"/>
