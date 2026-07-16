@@ -12,22 +12,19 @@ class SchoolAttendance(models.Model):
     curriculum_id = fields.Many2one("school.curriculum",string="Curriculum",readonly=True,store=True)
     academic_year_id = fields.Many2one("school.academic.year",string="Academic Year",readonly=True,store=True)
     session_id = fields.Many2one("school.schedule.session",string="Session")
-    start_datetime = fields.Datetime( related="session_id.start_datetime", string="Date of Attendance",readonly=True, store=True)
-    end_datetime = fields.Datetime(related="session_id.end_datetime", string="Date of Attendance", readonly=True, store=True)
+    start_datetime = fields.Datetime( related="session_id.start_datetime", string="Start Date",readonly=True, store=True)
+    end_datetime = fields.Datetime(related="session_id.end_datetime", string="End Date", readonly=True, store=True)
     course_id = fields.Many2one("school.course",string="Course",readonly=True,store=True)
     teacher_id = fields.Many2one("school.teacher",string="Teacher",readonly=True,store=True)
     room_id = fields.Many2one("school.room",string="Room",readonly=True,store=True)
     line_ids = fields.One2many("school.attendance.line","attendance_id",string="Attendance",)
 
     @api.onchange("group_class_id")
-    def _onchange_group_class(self):
-
+    def _onchange_group_class_id(self):
         self.session_id = False
-
         self.course_id = False
         self.teacher_id = False
         self.room_id = False
-
         self.line_ids = [(5, 0, 0)]
 
         if not self.group_class_id:
@@ -40,23 +37,31 @@ class SchoolAttendance(models.Model):
                 }
             }
 
-        self.curriculum_id = (
-            self.group_class_id.curriculum_id
-        )
+        self.curriculum_id = self.group_class_id.curriculum_id
+        self.academic_year_id = self.curriculum_id.academic_year_id
 
-        self.academic_year_id = (
-            self.curriculum_id.academic_year_id
-        )
+        domain = [
+            ("schedule_id.class_group_id", "=", self.group_class_id.id),
+        ]
+
+        # Filter sessions within Academic Year
+        if self.academic_year_id.start_date:
+            domain.append((
+                "start_datetime",
+                ">=",
+                fields.Datetime.to_datetime(self.academic_year_id.start_date)
+            ))
+
+        if self.academic_year_id.end_date:
+            domain.append((
+                "end_datetime",
+                "<=",
+                fields.Datetime.to_datetime(self.academic_year_id.end_date)
+            ))
 
         return {
             "domain": {
-                "session_id": [
-                    (
-                        "schedule_id.class_group_id",
-                        "=",
-                        self.group_class_id.id
-                    )
-                ]
+                "session_id": domain
             }
         }
 

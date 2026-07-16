@@ -33,15 +33,15 @@ class PurchaseRequest(models.Model):
                 rec.line_ids.mapped("subtotal")
             )
 
-    @api.model
-    def create(self, vals):
-        if vals.get("name", "/") == "/":
-            vals["name"] = self.env[
-                "ir.sequence"
-            ].next_by_code(
-                "school.purchase.request"
-            )
-        return super().create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        sequence = self.env["ir.sequence"]
+
+        for vals in vals_list:
+            if vals.get("name", "/") == "/":
+                vals["name"] = sequence.next_by_code("school.purchase.request") or "/"
+
+        return super().create(vals_list)
 
     @api.constrains("request_date")
     def _check_date(self):

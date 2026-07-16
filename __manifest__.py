@@ -5,7 +5,7 @@
     'summary': 'School Management',
     'author': 'RMA Cambodia',
     'license': 'LGPL-3',
-
+    'icon' : 'school_management_system/static/logo.png',
     'depends': [
         'base',
         'mail',
