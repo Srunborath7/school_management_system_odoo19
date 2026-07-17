@@ -66,11 +66,11 @@
      <record id="seq_school_schedule" model="ir.sequence">
         <field name="name">School Schedule</field>
         <field name="code">school.schedule</field>
-        <field name="prefix">SSC/</field>
+        <field name="prefix">SSH/</field>
         <field name="padding">5</field>
     </record>
 
-    <record id="seq_school_schedule" model="ir.sequence">
+    <record id="seq_school_attendance" model="ir.sequence">
         <field name="name">School Attendance</field>
         <field name="code">school.attendance</field>
         <field name="prefix">SA/</field>

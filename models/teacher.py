@@ -17,6 +17,7 @@ class Teacher(models.Model):
     address = fields.Char(string="Address", tracking=True)
     department_ids = fields.Many2one('school.department',string="Department", required=True, tracking=True)
     start_date = fields.Datetime(string="Start Date", tracking=True)
+    user_id = fields.Many2one("res.users",string="Related User",help="User account linked to this teacher")
     status = fields.Selection([
         ('active', 'Active'),
         ('inactive', 'Inactive'),

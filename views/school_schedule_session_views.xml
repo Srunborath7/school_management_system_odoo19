@@ -16,6 +16,7 @@
         <field name="model">school.schedule.session</field>
         <field name="arch" type="xml">
             <list string="Class Sessions">
+                <field name="name"/>
                 <field name="schedule_id"/>
                 <field name="curriculum_ids"/>
                 <field name="class_group_id"/>

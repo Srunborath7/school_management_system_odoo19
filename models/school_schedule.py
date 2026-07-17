@@ -33,15 +33,15 @@ class SchoolSchedule(models.Model):
                 [("curriculum_id", "=", rec.curriculum_id.id)],
                 limit=1,
             )
+
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
             if vals.get("name", "New") == "New":
                 vals["name"] = (
-                    self.env["ir.sequence"]
-                    .next_by_code("school.schedule") or "New"
+                        self.env["ir.sequence"]
+                        .next_by_code("school.schedule") or "New"
                 )
-
         return super().create(vals_list)
 
     @api.onchange("curriculum_id")
@@ -82,7 +82,6 @@ class SchoolSchedule(models.Model):
         }
 
         tz = pytz.timezone(self.env.user.tz or "UTC")
-
         for schedule in self:
 
             if not schedule.start_date or not schedule.end_date:

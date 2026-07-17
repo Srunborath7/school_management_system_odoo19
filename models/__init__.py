@@ -21,4 +21,3 @@ from . import res_partner
 from . import purchase_order
 from . import purchase_analysis_report
 from . import school_attendace
-

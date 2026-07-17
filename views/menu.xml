@@ -78,9 +78,9 @@
     <menuitem
             id="menu_school_department"
             name="Department"
-            parent="menu_school_management_root"
+            parent="menu_school_academic"
             action="action_school_department"
-            sequence="5"
+            sequence="8"
     />
     <menuitem
             id="menu_school_teacher"

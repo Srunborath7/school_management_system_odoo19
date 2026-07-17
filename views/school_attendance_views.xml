@@ -23,31 +23,46 @@
         <field name="arch" type="xml">
             <form string="Attendance">
                 <sheet>
-                    <h1><field name="name"/></h1>
-                        <group string="Class Information">
-                            <field name="group_class_id"/>
-                            <field name="session_id" domain="[('schedule_id.class_group_id','==',group_class_id)]"/>/>
-                            <field name="curriculum_id"/>
-                            <field name="academic_year_id"/>
-                            <field name="course_id"/>
-                        </group>
-                        <group string="Teacher Information">
-                            <field name="teacher_id"/>
-                            <field name="room_id"/>
-                            <field name="start_datetime" string="Start Date"/>
-                            <field name="end_datetime" string="End Date"/>
-                        </group>
+                    <h1>
+                        <field name="name"/>
+                    </h1>
+                    <group string="Class Information">
+                        <field name="group_class_id"/>
+                        <field name="session_id" domain="[('schedule_id.class_group_id','==',group_class_id)]"/>/>
+                        <field name="curriculum_id"/>
+                        <field name="academic_year_id"/>
+                        <field name="course_id"/>
+                    </group>
+                    <group string="Teacher Information">
+                        <field name="teacher_id"/>
+                        <field name="room_id"/>
+                        <field name="start_datetime" string="Start Date"/>
+                        <field name="end_datetime" string="End Date"/>
+                    </group>
                     <notebook>
-                        <page string="Students Attendance">
+                        <page string="Student Attendance">
                             <field name="line_ids">
                                 <list editable="bottom">
-                                    <field name="date"/>
                                     <field name="student_id"/>
                                     <field name="gender"/>
                                     <field name="phone"/>
-                                    <field name="email"/>
                                     <field name="state"/>
                                     <field name="reason"/>
+                                    <field name="display_date"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="All Sessions">
+                            <field name="session_ids">
+                                <list decoration-success="attendance_created"
+                                      decoration-muted="not attendance_created">
+                                    <field name="start_datetime"/>
+                                    <field name="end_datetime"/>
+                                    <field name="course_id"/>
+                                    <field name="teacher_id"/>
+                                    <field name="room_id"/>
+                                    <field name="attendance_created"/>
+                                    <button name="action_create_attendance_from_session" type="object" string="Create Attendance" class="btn-primary"/>
                                 </list>
                             </field>
                         </page>
@@ -60,28 +75,27 @@
         </field>
     </record>
 
-    <!-- Attendance Search -->
-<!--    <record id="school_attendance_search_view" model="ir.ui.view">-->
-<!--        <field name="name">school.attendance.search</field>-->
-<!--        <field name="model">school.attendance</field>-->
-<!--        <field name="arch" type="xml">-->
-<!--            <search string="Search Attendance">-->
-<!--                <field name="session_id"/>-->
-<!--                <field name="course_id"/>-->
-<!--                <field name="teacher_id"/>-->
-<!--                <field name="curriculum_id"/>-->
-<!--                <separator/>-->
-<!--                <filter string="My Attendance" name="my_attendance" domain="[('teacher_id.user_id','=',uid)]"/>-->
-<!--                <filter string="Group By Teacher" name="group_teacher" context="{'group_by':'teacher_id'}"/>-->
-<!--                <filter string="Group By Course" name="group_course" context="{'group_by':'course_id'}"/>-->
-<!--                <filter string="Group By Academic Year" name="group_year" context="{'group_by':'academic_year_id'}"/>-->
-<!--            </search>-->
-<!--        </field>-->
-<!--    </record>-->
+    <record id="school_attendance_search_view" model="ir.ui.view">
+        <field name="name">school.attendance.search</field>
+        <field name="model">school.attendance</field>
+        <field name="arch" type="xml">
+            <search string="Search Attendance">
+                <field name="session_id"/>
+                <field name="course_id"/>
+                <field name="teacher_id"/>
+                <field name="curriculum_id"/>
+                <separator/>
+                <filter string="My Attendance" name="my_attendance" domain="[('teacher_id.user_id','=',uid)]"/>
+                <filter string="Group By Teacher" name="group_teacher" context="{'group_by':'teacher_id'}"/>
+                <filter string="Group By Course" name="group_course" context="{'group_by':'course_id'}"/>
+                <filter string="Group By Academic Year" name="group_year" context="{'group_by':'academic_year_id'}"/>
+            </search>
+        </field>
+    </record>
     <record id="school_attendance_action" model="ir.actions.act_window">
         <field name="name">Attendance</field>
         <field name="res_model">school.attendance</field>
         <field name="view_mode">list,form</field>
-<!--        <field name="search_view_id" ref="school_attendance_search_view"/>-->
+        <field name="search_view_id" ref="school_attendance_search_view"/>
     </record>
 </odoo>
