@@ -5,7 +5,7 @@
     'summary': 'School Management',
     'author': 'RMA Cambodia',
     'license': 'LGPL-3',
-    'icon' : 'school_management_system/static/logo.png',
+    'icon': 'school_management_system/static/logo.png',
     'depends': [
         'base',
         'mail',
@@ -27,6 +27,8 @@
         'data/automated_action.xml',
         'reports/purchase_request_templates.xml',
         'reports/purchase_request_report.xml',
+        'reports/enrollment_certificate_template.xml',
+        'reports/enrollment_certificate_report.xml',
         'security/record_rules.xml',
         'views/student_registry_views.xml',
         'views/student_course_views.xml',
@@ -53,10 +55,10 @@
         'views/menu.xml',
     ],
     'assets': {
-            'web.assets_backend': [
-                'school_management_system/static/src/css/timetable_calendar.css',
-            ],
-        },
+        'web.assets_backend': [
+            'school_management_system/static/src/css/timetable_calendar.css',
+        ],
+    },
     'application': True,
     'installable': True,
 }

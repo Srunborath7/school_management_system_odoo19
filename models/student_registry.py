@@ -47,7 +47,6 @@ class StudentRegistry(models.Model):
         for student in self:
             if not student.email:
                 raise UserError("Please set an email address before enrolling %s." % student.name)
-
             student.status = "enrolled"
             student._send_enrollment_email()
 

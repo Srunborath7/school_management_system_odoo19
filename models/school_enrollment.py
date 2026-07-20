@@ -9,6 +9,8 @@ class SchoolEnrollment(models.Model):
     student_id = fields.Many2one('school.student.registry', string="Student")
     batch_id = fields.Many2one('school.batch', string="Batch")
     curriculum_id = fields.Many2one('school.curriculum', string="Curriculum")
+    course_ids = fields.Many2many("school.course",related="curriculum_id.course_ids",string="Courses")
+    course_name = fields.Char(string="Course Names",compute="_compute_course_name",store=True,)
     academic_program = fields.Char(related="curriculum_id.academic_program_id.name", string="Academic Program")
     major = fields.Char(related="curriculum_id.major_id.name", string="Major")
     academic_year = fields.Char(related="curriculum_id.academic_year_id.name", string="Academic Year")
@@ -34,6 +36,11 @@ class SchoolEnrollment(models.Model):
                      "school.enrollment"
                 ) or "New"
         return super().create(vals)
+
+    @api.depends("course_ids", "course_ids.name")
+    def _compute_course_name(self):
+        for rec in self:
+            rec.course_name = ", ".join(rec.course_ids.mapped("name"))
 
     def action_active(self):
         self.write({'status': 'active'})

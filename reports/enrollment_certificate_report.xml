@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_report_enrollment_certificate" model="ir.actions.report">
+        <field name="name">Certificate of Enrollment</field>
+        <field name="model">school.enrollment</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">school_management_system.report_enrollment_certificate</field>
+        <field name="report_file">school_management_system.report_enrollment_certificate</field>
+        <field name="print_report_name">'Certificate - %s' % (object.student_id.name or 'Student')</field>
+    </record>
+
+</odoo>

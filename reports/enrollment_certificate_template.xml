@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+
+    <template id="report_enrollment_certificate">
+
+        <t t-call="web.html_container">
+
+            <t t-foreach="docs" t-as="o">
+
+                <t t-call="web.basic_layout">
+
+                    <div class="page">
+
+                        <!-- HEADER -->
+                        <div class="text-center">
+
+                            <h1 style="font-size:28px;">
+                                SCHOOL / UNIVERSITY NAME
+                            </h1>
+
+                            <h2>
+                                CERTIFICATE OF ENROLLMENT
+                            </h2>
+
+                            <hr/>
+
+                        </div>
+
+
+                        <br/>
+
+
+                        <!-- INTRODUCTION -->
+
+                        <p style="font-size:16px;">
+
+                            This is to certify that the student mentioned
+                            below is officially enrolled in our institution.
+
+                        </p>
+
+
+                        <br/>
+
+
+                        <!-- STUDENT INFORMATION -->
+
+                        <table class="table table-bordered"
+                               style="width:100%; font-size:15px;">
+
+                            <tr>
+                                <td style="width:35%;">
+                                    <strong>Student Name</strong>
+                                </td>
+
+                                <td>
+                                    <span t-esc="o.student_id.name if o.student_id else ''"/>
+                                </td>
+                            </tr>
+
+
+                            <tr>
+                                <td>
+                                    <strong>Enrollment Number</strong>
+                                </td>
+
+                                <td>
+                                    <span t-esc="o.name or ''"/>
+                                </td>
+                            </tr>
+
+
+                            <tr>
+                                <td>
+                                    <strong>Course</strong>
+                                </td>
+
+                                <td>
+                                   <span t-esc="o.course_name"/>
+                                </td>
+                            </tr>
+
+
+                            <tr>
+                                <td>
+                                    <strong>Academic Program</strong>
+                                </td>
+
+                                <td>
+                                    <span t-esc="o.academic_program or ''"/>
+                                </td>
+                            </tr>
+
+
+                            <tr>
+                                <td>
+                                    <strong>Major</strong>
+                                </td>
+
+                                <td>
+                                    <span t-esc="o.major or ''"/>
+                                </td>
+                            </tr>
+
+
+                            <tr>
+                                <td>
+                                    <strong>Academic Year</strong>
+                                </td>
+
+                                <td>
+                                    <span t-esc="o.academic_year or ''"/>
+                                </td>
+                            </tr>
+
+
+                            <tr>
+                                <td>
+                                    <strong>Academic Year Level</strong>
+                                </td>
+
+                                <td>
+                                    <span t-esc="o.academic_year_level or ''"/>
+                                </td>
+                            </tr>
+
+
+                            <tr>
+                                <td>
+                                    <strong>Batch</strong>
+                                </td>
+
+                                <td>
+                                    <span t-esc="o.batch_id.name if o.batch_id else ''"/>
+                                </td>
+                            </tr>
+
+
+                            <tr>
+                                <td>
+                                    <strong>Status</strong>
+                                </td>
+
+                                <td>
+                                    <span t-esc="o.status or ''"/>
+                                </td>
+                            </tr>
+
+
+                            <tr>
+                                <td>
+                                    <strong>Enrollment Date</strong>
+                                </td>
+
+                                <td>
+                                    <span t-field="o.create_date"/>
+                                </td>
+                            </tr>
+
+
+                        </table>
+
+
+                        <br/>
+                        <br/>
+
+
+                        <!-- CERTIFICATE MESSAGE -->
+
+                        <p style="font-size:15px;">
+
+                            This certificate is issued upon request of the
+                            student for academic and official purposes.
+
+                        </p>
+
+
+                        <br/>
+                        <br/>
+                        <br/>
+
+
+                        <!-- SIGNATURE -->
+
+                        <table style="width:100%;">
+
+                            <tr>
+
+                                <td class="text-center">
+
+                                    _______________________
+
+                                    <br/>
+
+                                    Student Affairs Officer
+
+                                </td>
+
+
+                                <td class="text-center">
+
+                                    _______________________
+
+                                    <br/>
+
+                                    Registrar
+
+                                </td>
+
+                            </tr>
+
+                        </table>
+
+
+                        <br/>
+                        <br/>
+
+
+                        <!-- ISSUE DATE -->
+
+                        <div class="text-center">
+
+                            Issued Date:
+
+                            <span t-field="o.create_date"/>
+
+                        </div>
+
+
+                    </div>
+
+                </t>
+
+            </t>
+
+        </t>
+
+    </template>
+
+</odoo>
