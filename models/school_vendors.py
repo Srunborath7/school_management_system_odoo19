@@ -1,6 +1,6 @@
 from odoo import models, fields
 
-class ResPartner(models.Model):
+class SchoolVendors(models.Model):
     _inherit = 'res.partner'
 
     customer_type = fields.Selection(

@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
     <record id="view_purchase_order_list_approval" model="ir.ui.view">
         <field name="name">purchase.order.list.approval</field>
         <field name="model">purchase.order</field>
         <field name="inherit_id" ref="purchase.purchase_order_view_tree"/>
         <field name="arch" type="xml">
-
-            <!-- Add approval_state right after the standard state/status column -->
+            
             <xpath expr="//field[@name='state']" position="after">
-                <field name="approval_state" widget="badge"
+                <field name="approval_state"
+                       widget="badge"
                        decoration-warning="approval_state == 'pending'"
                        decoration-success="approval_state == 'approved'"
                        decoration-danger="approval_state == 'rejected'"/>
             </xpath>
 
-            <!-- Add approver and date as optional (hidden by default) columns -->
             <xpath expr="//field[@name='approval_state']" position="after">
                 <field name="approved_by" optional="hide"/>
                 <field name="approved_date" optional="hide"/>
@@ -22,6 +22,7 @@
 
         </field>
     </record>
+
     <record id="view_purchase_order_form_approval_panel" model="ir.ui.view">
         <field name="name">purchase.order.form.approval.panel</field>
         <field name="model">purchase.order</field>
@@ -29,48 +30,21 @@
         <field name="priority" eval="20"/>
         <field name="arch" type="xml">
 
-            <!-- 1. Add approval action buttons into the header, before the existing status bar -->
-<!--            <xpath expr="//header" position="inside">-->
-<!--                <button name="action_custom_approve"-->
-<!--                        string="Approve"-->
-<!--                        type="object"-->
-<!--                        class="btn-primary"-->
-<!--                        invisible="approval_state != 'pending'"-->
-<!--                        groups="purchase.group_purchase_manager"/>-->
-<!--                <button name="action_custom_reject"-->
-<!--                        string="Reject"-->
-<!--                        type="object"-->
-<!--                        class="btn-secondary"-->
-<!--                        invisible="approval_state != 'pending'"-->
-<!--                        groups="purchase.group_purchase_manager"/>-->
-<!--                <field name="approval_state" widget="statusbar"-->
-<!--                       statusbar_visible="pending,approved,rejected"/>-->
-<!--            </xpath>-->
-
-            <!-- 2. Insert an approval info panel right after the vendor/partner field -->
-<!--            <xpath expr="//field[@name='partner_id']" position="after">-->
-<!--                <div class="alert alert-info" role="alert"-->
-<!--                     invisible="approval_state != 'pending'">-->
-<!--                    <strong>Pending Approval:</strong>-->
-<!--                    This purchase order requires manager approval before confirmation.-->
-<!--                </div>-->
-<!--            </xpath>-->
-
-            <!-- 3. Add a dedicated notebook tab with approval history/details -->
             <xpath expr="//notebook" position="inside">
-                <page string="Approval" name="approval_info">
+                <page string="Approval">
                     <group>
-                        <group string="Status">
+                        <group>
                             <field name="approval_state"/>
                             <field name="approved_by" readonly="1"/>
                             <field name="approved_date" readonly="1"/>
                         </group>
-                        <group string="Notes">
-                            <field name="approval_notes" placeholder="Reason for approval/rejection..."/>
+                        <group>
+                            <field name="approval_notes"/>
                         </group>
                     </group>
                 </page>
             </xpath>
+
         </field>
     </record>
 

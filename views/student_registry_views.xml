@@ -40,6 +40,16 @@
                     <h2>
                         <field name="student_code"/>
                     </h2>
+                    <div class="ribbon ribbon-top-right" invisible="status != 'graduated'">
+                        <span class="bg-success">
+                            Graduated
+                        </span>
+                    </div>
+                    <div class="ribbon ribbon-top-right" invisible="status != 'enrolled'">
+                        <span class="bg-info">
+                            Enrolled
+                        </span>
+                    </div>
                     <group>
                         <group string="Student Info">
                             <field name="name"/>

@@ -17,7 +17,7 @@ from . import school_curriculum
 from . import school_enrollment
 from . import purchase_request
 from . import purchase_request_line
-from . import res_partner
+from . import school_vendors
 from . import purchase_order
 from . import purchase_analysis_report
 from . import school_attendace

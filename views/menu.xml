@@ -3,8 +3,8 @@
     <menuitem
             id="menu_school_management_root"
             name="School Management System"
-            web_icon="school_management_system,static/logo.png"/>
-    sequence="35"/>
+            web_icon="school_management_system,static/logo.png"
+            sequence="35"/>
     <menuitem
             id="menu_student_registry"
             name="Student Registry"
@@ -110,33 +110,33 @@
             sequence="2"
     />
     <menuitem
-            id="menu_school_purchase"
-            name="Purchase"
+            id="menu_school_orders"
+            name="Orders"
             parent="menu_school_management_root"
             sequence="10"/>
     <menuitem
             id="menu_school_purchase_sub"
-            name="Purchase"
-            parent="menu_school_purchase"
+            name="Purchase Requests"
+            parent="menu_school_orders"
             action="action_purchase_request"
             sequence="1"/>
     <menuitem
             id="menu_school_purchase_order"
             name="Purchase Order"
-            parent="menu_school_purchase"
+            parent="menu_school_orders"
             action="action_purchase_order"
             sequence="2"/>
     <menuitem
             id="menu_school_res_partner"
-            name="Partner"
-            parent="menu_school_purchase"
+            name="Vendors"
+            parent="menu_school_orders"
             action="action_res_partner"
             sequence="3"
     />
     <menuitem
             id="menu_school_purchase_analysis_report"
             name="Purchase Analysis"
-            parent="menu_school_purchase"
+            parent="menu_school_orders"
             action="action_purchase_analysis_report"
             sequence="4"
     />
