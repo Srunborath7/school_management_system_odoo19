@@ -1,3 +1,5 @@
+from email.policy import default
+
 from odoo import api, fields, models
 
 class SchoolCurriculumPrice(models.Model):
@@ -19,6 +21,24 @@ class SchoolCurriculumPrice(models.Model):
 
     amount = fields.Float(string="Amount")
     note = fields.Text(string="Note")
+    state = fields.Selection([
+        ('draft','Draft'),
+        ('active','Active'),
+        ('inactive','Inactive'),
+        ('cancel','cancel')
+    ], default='draft', string="Status")
+
+    def action_active(self):
+        self.write({'state': 'active'})
+
+    def action_inactive(self):
+        self.write({'state': 'inactive'})
+
+    def action_cancel(self):
+        self.write({'state': 'cancel'})
+
+    def action_reset_draft(self):
+        self.write({'state': 'draft'})
 
     @api.onchange('price', 'discount', 'payment_term')
     def _onchange_amount(self):

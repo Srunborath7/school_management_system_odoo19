@@ -11,6 +11,7 @@
                 <field name="discount"/>
                 <field name="payment_term"/>
                 <field name="amount"/>
+                <field name="state"/>
                 <field name="note"/>
             </list>
         </field>
@@ -21,13 +22,13 @@
         <field name="model">school.curriculum.price</field>
         <field name="arch" type="xml">
             <form string="School Curriculum">
-<!--                <header>-->
-<!--                    <button name="action_active" type="object" string="Activate" class="btn-primary" invisible="status != 'draft'"/>-->
-<!--                    <button name="action_inactive" type="object" string="Inactive" invisible="status != 'active'"/>-->
-<!--                    <button name="action_closed" type="object" string="Close" invisible="status != 'inactive'"/>-->
-<!--                    <button name="action_reset_draft" type="object" string="Reset Draft" invisible="status == 'draft'"/>-->
-<!--                    <field name="status" widget="statusbar" statusbar_visible="draft,active,inactive,closed"/>-->
-<!--                </header>-->
+                <header>
+                    <button name="action_active" type="object" string="Activate" class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_inactive" type="object" string="Inactive" invisible="state != 'active'"/>
+                    <button name="action_cancel" type="object" string="Cancel" invisible="state != 'inactive'"/>
+                    <button name="action_reset_draft" type="object" string="Reset Draft" invisible="state == 'draft'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,active,inactive,cancel"/>
+                </header>
                 <sheet>
                     <div class="oe_title">
                         <h1>
@@ -54,39 +55,34 @@
         </field>
     </record>
 
-<!--    <record id="view_school_curriculum_search" model="ir.ui.view">-->
-<!--        <field name="name">school.curriculum.search</field>-->
-<!--        <field name="model">school.curriculum</field>-->
-<!--        <field name="arch" type="xml">-->
-<!--            <search>-->
-<!--                <field name="name"/>-->
-<!--                <field name="major_id"/>-->
-<!--                <field name="academic_program_id"/>-->
-<!--                <field name="academic_year_id"/>-->
-<!--                <field name="academic_level_id"/>-->
-<!--                <separator/>-->
-<!--                <filter string="Draft" name="draft" domain="[('status','=','draft')]"/>-->
-<!--                <filter string="Active" name="active" domain="[('status','=','active')]"/>-->
-<!--                <filter string="Inactive" name="inactive" domain="[('status','=','inactive')]"/>-->
-<!--                <filter string="Closed" name="closed" domain="[('status','=','closed')]"/>-->
-<!--                <filter name="group_major" string="Major" context="{'group_by':'major_id'}"/>-->
-<!--                <filter name="group_program" string="Program" context="{'group_by':'academic_program_id'}"/>-->
-<!--                <filter name="group_year" string="Academic Year" context="{'group_by':'academic_year_id'}"/>-->
-<!--                <filter name="group_level" string="Academic Level" context="{'group_by':'academic_level_id'}"/>-->
-<!--                <filter name="group_status" string="Status" context="{'group_by':'status'}"/>-->
-<!--                <searchpanel>-->
-<!--                    <field name="status" string="Status" enable_counters="1"/>-->
-<!--                    <field name="major_id" string="Major" enable_counters="1"/>-->
-<!--                    <field name="academic_program_id" string="Academic Program" enable_counters="1"/>-->
-<!--                </searchpanel>-->
-<!--            </search>-->
-<!--        </field>-->
-<!--    </record>-->
+    <record id="view_school_curriculum_price_search" model="ir.ui.view">
+        <field name="name">school.curriculum.price.search</field>
+        <field name="model">school.curriculum.price</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="curriculum_id"/>
+                <field name="payment_term"/>
+                <field name="state"/>
+                <separator/>
+                <filter string="Draft" name="draft" domain="[('state','=','draft')]"/>
+                <filter string="Active" name="active" domain="[('state','=','active')]"/>
+                <filter string="Inactive" name="inactive" domain="[('state','=','inactive')]"/>
+                <filter string="Cancel" name="closed" domain="[('state','=','cancel')]"/>
+                <filter name="curriculum_id" string="Curriculum" context="{'group_by':'curriculum_id'}"/>
+                <filter name="payment_term" string="Payment Term" context="{'group_by':'payment_term'}"/>
+                <searchpanel>
+                    <field name="state" string="Status" enable_counters="1"/>
+                    <field name="curriculum_id" string="Curriculum" enable_counters="1"/>
+                    <field name="payment_term" string="Payment Term" enable_counters="1"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
 
     <record id="action_school_curriculum_price" model="ir.actions.act_window">
         <field name="name">Curriculum Price</field>
         <field name="res_model">school.curriculum.price</field>
         <field name="view_mode">list,form</field>
-<!--        <field name="search_view_id" ref="view_school_curriculum_search"/>-->
+        <field name="search_view_id" ref="view_school_curriculum_price_search"/>
     </record>
 </odoo>

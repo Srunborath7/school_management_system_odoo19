@@ -32,11 +32,8 @@ class SchoolPayment(models.Model):
 
     @api.model_create_multi
     def create(self, vals_list):
-
         for vals in vals_list:
-
             student_id = vals.get("student_ids")
-
             if student_id:
                 student = self.env["school.student.registry"].browse(student_id)
 
