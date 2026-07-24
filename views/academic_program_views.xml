@@ -125,32 +125,29 @@
             </kanban>
         </field>
     </record>
-<!--    <record id="view_academic_programs_search" model="ir.ui.view">-->
-<!--        <field name="name">school.academic.program.search</field>-->
-<!--        <field name="model">school.academic.program</field>-->
-<!--        <field name="arch" type="xml">-->
-<!--            <search string="Academic Program">-->
-<!--                <field name="name"/>-->
-<!--                <field name="code"/>-->
-<!--                <field name="department_ids"/>-->
-<!--                <filter string="Draft" name="draft_program" domain="[('status','=','draft')]"/>-->
-<!--                <filter string="Active" name="active_program" domain="[('status','=','active')]"/>-->
-<!--                <filter string="Inactive" name="inactive_program" domain="[('status','=','inactive')]"/>-->
-<!--                <filter string="Closed" name="closed_program" domain="[('status','=','closed')]"/>-->
-<!--                <filter string="Completed" name="completed_program" domain="[('status','=','completed')]"/>-->
-<!--                <separator/>-->
-<!--                <group expand="1" string="Group By">-->
-<!--                    <filter string="Department" name="group_department" context="{'group_by' : 'department_ids'}"/>-->
-<!--                    <filter string="Academic Program Name" name="group_academic_program"-->
-<!--                            context="{'group_by' : 'name'}"/>-->
-<!--                </group>-->
-<!--                <searchpanel>-->
-<!--                    <field name="department_ids" string="Department" enable_counters="1"/>-->
-<!--                    <field name="status" string="Status" enable_counters="1"/>-->
-<!--                </searchpanel>-->
-<!--            </search>-->
-<!--        </field>-->
-<!--    </record>-->
+    <record id="view_academic_programs_search" model="ir.ui.view">
+        <field name="name">school.academic.program.search</field>
+        <field name="model">school.academic.program</field>
+        <field name="arch" type="xml">
+            <search string="Academic Program">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="department_ids"/>
+                <filter string="Draft" name="draft_program" domain="[('status','=','draft')]"/>
+                <filter string="Active" name="active_program" domain="[('status','=','active')]"/>
+                <filter string="Inactive" name="inactive_program" domain="[('status','=','inactive')]"/>
+                <filter string="Closed" name="closed_program" domain="[('status','=','closed')]"/>
+                <filter string="Completed" name="completed_program" domain="[('status','=','completed')]"/>
+                <separator/>
+                <filter string="Department" name="group_department" context="{'group_by' : 'department_ids'}"/>
+                <filter string="Academic Program Name" name="group_academic_program" context="{'group_by' : 'name'}"/>
+                <searchpanel>
+                    <field name="department_ids" string="Department" enable_counters="1"/>
+                    <field name="status" string="Status" enable_counters="1"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
     <record id="action_school_acadamic_programs" model="ir.actions.act_window">
         <field name="name">Academic Program</field>
         <field name="res_model">school.academic.program</field>
