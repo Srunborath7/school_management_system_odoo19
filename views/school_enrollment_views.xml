@@ -137,36 +137,35 @@
             </kanban>
         </field>
     </record>
-<!--    <record id="view_school_enrollment_search" model="ir.ui.view">-->
-<!--        <field name="name">school.enrollment.search</field>-->
-<!--        <field name="model">school.enrollment</field>-->
-<!--        <field name="arch" type="xml">-->
-<!--            <search string="Search School Enrollment">-->
-<!--                <field name="name"/>-->
-<!--                <field name="curriculum_id"/>-->
-<!--                <field name="status"/>-->
-<!--                <field name="batch_id"/>-->
-<!--                <filter string="Draft" name="draft" domain="[('status','=','draft')]"/>-->
-<!--                <filter string="Active" name="active" domain="[('status','=','active')]"/>-->
-<!--                <filter string="Inactive" name="inactive" domain="[('status','=','inactive')]"/>-->
-<!--                <filter string="Closed" name="closed" domain="[('status','=','closed')]"/>-->
-<!--                <filter string="Completed" name="completed" domain="[('status','=','completed')]"/>-->
-<!--                <separator/>-->
-<!--                <group expand="0" string="Group By">-->
-<!--                    <filter string="Status" name="group_status" context="{'group_by':'status'}"/>-->
-<!--                    <filter string="Curriculum" name="group_start_date" context="{'group_by':'curriculum_id'}"/>-->
-<!--                </group>-->
-<!--                <searchpanel>-->
-<!--                    <field name="status" string="Status" enable_counters="1"/>-->
-<!--                    <field name="curriculum_id" string="Curriculum" enable_counters="1"/>-->
-<!--                    <field name="batch_id" string="Batch" enable_counters="1"/>-->
-<!--                </searchpanel>-->
-<!--            </search>-->
-<!--        </field>-->
-<!--    </record>-->
+    <record id="view_school_enrollment_search" model="ir.ui.view">
+        <field name="name">school.enrollment.search</field>
+        <field name="model">school.enrollment</field>
+        <field name="arch" type="xml">
+            <search string="Search School Enrollment">
+                <field name="name"/>
+                <field name="curriculum_id"/>
+                <field name="status"/>
+                <field name="batch_id"/>
+                <filter string="Draft" name="draft" domain="[('status','=','draft')]"/>
+                <filter string="Active" name="active" domain="[('status','=','active')]"/>
+                <filter string="Inactive" name="inactive" domain="[('status','=','inactive')]"/>
+                <filter string="Closed" name="closed" domain="[('status','=','closed')]"/>
+                <filter string="Completed" name="completed" domain="[('status','=','completed')]"/>
+                <separator/>
+                <filter string="Status" name="group_status" context="{'group_by':'status'}"/>
+                <filter string="Curriculum" name="group_start_date" context="{'group_by':'curriculum_id'}"/>
+                <searchpanel>
+                    <field name="status" string="Status" enable_counters="1"/>
+                    <field name="curriculum_id" string="Curriculum" enable_counters="1"/>
+                    <field name="batch_id" string="Batch" enable_counters="1"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
     <record id="action_school_enrollment" model="ir.actions.act_window">
         <field name="name">School Enrollment</field>
         <field name="res_model">school.enrollment</field>
         <field name="view_mode">list,form,kanban</field>
+        <field name="search_view_id" ref="view_school_enrollment_search"/>
     </record>
 </odoo>
