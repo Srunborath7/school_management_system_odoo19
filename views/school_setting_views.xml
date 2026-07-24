@@ -141,6 +141,7 @@
             </kanban>
         </field>
     </record>
+
     <record id="view_school_setting_search" model="ir.ui.view">
         <field name="name">school.setting.search</field>
         <field name="model">school.setting</field>
@@ -154,6 +155,7 @@
             </search>
         </field>
     </record>
+
     <record id="action_school_setting" model="ir.actions.act_window">
         <field name="name">Theme Settings</field>
         <field name="res_model">school.setting</field>

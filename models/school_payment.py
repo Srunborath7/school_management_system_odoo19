@@ -4,7 +4,11 @@ from odoo import api, fields, models
 class SchoolPayment(models.Model):
     _inherit = "sale.order"
 
-    student_ids = fields.Many2one("school.student.registry",string="Student",required=True)
+    student_ids = fields.Many2one(
+        "school.student.registry",
+        string="Students",
+        required=True
+    )
     payment_type = fields.Selection([
         ('payment_term', 'Payment Term'),
         ('late_payment', 'Penalty for Late Payment'),

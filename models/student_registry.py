@@ -44,8 +44,8 @@ class StudentRegistry(models.Model):
         "Student Code must be unique!",
     )
     partner_id = fields.Many2one(
-        "res.partner",
-        string="Customer",required=True
+        'res.partner',
+        required=False
     )
     def action_enroll(self):
         for student in self:
