@@ -41,11 +41,15 @@
                 <field name="credits"/>
                 <field name="creation_date"/>
                 <field name="description"/>
+                <field name="theme_primary"/>
+                <field name="text_color_primary"/>
+                <field name="theme_secondary"/>
                 <templates>
                     <t t-name="card">
                         <div class="oe_kanban_global_click card border-0 shadow rounded-4 overflow-hidden">
                             <div class="card-header text-center text-white py-4"
-                                 style="background: linear-gradient(135deg,#2d358e,#4f5bd5);border-radius: 24px 24px 0 0;box-shadow: 0 4px 12px rgba(0,0,0,.15);">
+                                 t-attf-style="background: linear-gradient(135deg,#{record.theme_primary.raw_value},#{record.theme_secondary.raw_value});
+                                    color: #{record.text_color_primary.raw_value};">
                                 <i class="fa fa-book fa-3x mb-2" title="Book"/>
                                 <h4 class="mb-0 fw-bold text-white">
                                     <field name="name"/>
@@ -87,7 +91,6 @@
                                     School Management System
                                 </small>
                             </div>
-
                         </div>
                     </t>
                 </templates>

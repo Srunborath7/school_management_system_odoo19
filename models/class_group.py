@@ -7,7 +7,7 @@ class ClassGroup(models.Model):
     name = fields.Char(string="Name", default="New Class")
     room_id = fields.Many2one('school.room', string="Room")
     curriculum_id = fields.Many2one('school.curriculum',string="Curriculum",required=True)
-    enrollment_id = fields.Many2one('school.enrollment',string="Enrollment")
+    enrollment_id = fields.Many2one('school.enrollment',string="Enrollment", store=True)
     status = fields.Selection([
         ('active', 'Active'),
         ('inactive', 'Inactive'),

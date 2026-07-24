@@ -26,14 +26,10 @@
         <field name="arch" type="xml">
             <form string="Student">
                 <header>
-                    <button name="action_enroll" type="object" string="Enroll" class="oe_highlight"
-                            invisible="status != 'draft'"/>
-                    <button name="action_graduate" type="object" string="Graduate" class="oe_highlight"
-                            invisible="status != 'enrolled'"/>
-                    <button name="action_cancel" type="object" string="Cancel" class="btn-danger"
-                            invisible="status == 'cancelled'"/>
-                    <button name="action_reset_draft" type="object" string="Reset to Draft"
-                            invisible="status != 'cancelled'"/>
+                    <button name="action_enroll" type="object" string="Enroll" class="oe_highlight" invisible="status != 'draft'"/>
+                    <button name="action_graduate" type="object" string="Graduate" class="oe_highlight" invisible="status != 'enrolled'"/>
+                    <button name="action_cancel" type="object" string="Cancel" class="btn-danger" invisible="status == 'cancelled'"/>
+                    <button name="action_reset_draft" type="object" string="Reset to Draft" invisible="status != 'cancelled'"/>
                     <field name="status" widget="statusbar" statusbar_visible="draft,enrolled,graduated,cancelled"/>
                 </header>
                 <sheet>
@@ -62,8 +58,7 @@
                         <group string="Academic Info">
                             <field name="enrolled_date"/>
                             <field name="status"/>
-                            <field name="create_uid"
-                                   groups="school_management_system.group_school_management_admin"/>
+                            <field name="create_uid" groups="school_management_system.group_school_management_admin"/>
                         </group>
                     </group>
                 </sheet>

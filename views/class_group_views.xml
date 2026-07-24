@@ -7,7 +7,6 @@
             <list string="Class Group">
                 <field name="name"/>
                 <field name="room_id"/>
-                <field name="enrollment_id"/>
                 <field name="curriculum_id"/>
                 <field name="student_ids"/>
                 <field name="student_count"/>
@@ -115,24 +114,31 @@
             </kanban>
         </field>
     </record>
-<!--    <record id="view_class_group_search" model="ir.ui.view">-->
-<!--        <field name="name">school.class.group.search</field>-->
-<!--        <field name="model">school.class.group</field>-->
-<!--        <field name="arch" type="xml">-->
-<!--            <search string="Class Group">-->
-<!--                <field name="name"/>-->
-<!--                <filter string="Draft" name="draft_program" domain="[('status','=','draft')]"/>-->
-<!--                <filter string="Active" name="active_program" domain="[('status','=','active')]"/>-->
-<!--                <filter string="Inactive" name="inactive_program" domain="[('status','=','inactive')]"/>-->
-<!--                <filter string="Closed" name="closed_program" domain="[('status','=','closed')]"/>-->
-<!--                <filter string="Completed" name="completed_program" domain="[('status','=','completed')]"/>-->
-<!--                <separator/>-->
-<!--                <searchpanel>-->
-<!--                    <field name="status" string="Status" enable_counters="1"/>-->
-<!--                </searchpanel>-->
-<!--            </search>-->
-<!--        </field>-->
-<!--    </record>-->
+    <record id="view_class_group_search" model="ir.ui.view">
+        <field name="name">school.class.group.search</field>
+        <field name="model">school.class.group</field>
+        <field name="arch" type="xml">
+            <search string="Class Group">
+                <field name="name"/>
+                <field name="room_id"/>
+                <field name="curriculum_id"/>
+                <filter string="Draft" name="draft_program" domain="[('status','=','draft')]"/>
+                <filter string="Active" name="active_program" domain="[('status','=','active')]"/>
+                <filter string="Inactive" name="inactive_program" domain="[('status','=','inactive')]"/>
+                <filter string="Closed" name="closed_program" domain="[('status','=','closed')]"/>
+                <filter string="Completed" name="completed_program" domain="[('status','=','completed')]"/>
+                <filter string="Group by Status" name="group_status" context="{'group_by': 'status'}"/>
+                <filter string="Room" name="room_id" context="{'group_by':'room_id'}"/>
+                <filter string="Curriculum" name="curriculum_id" context="{'group_by':'curriculum_id'}"/>
+                <separator/>
+                <searchpanel>
+                    <field name="status" string="Status" enable_counters="1"/>
+                    <field name="room_id" string="Room" enable_counters="1"/>
+                    <field name="curriculum_id" string="Curriculum" enable_counters="1"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
     <record id="action_school_class_group" model="ir.actions.act_window">
         <field name="name">Class Group</field>
         <field name="res_model">school.class.group</field>

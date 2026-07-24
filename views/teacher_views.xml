@@ -22,10 +22,14 @@
         <field name="arch" type="xml">
             <form string="Teacher">
                 <header>
-                    <button name="action_active" type="object" string="Active" class="oe_highlight" invisible="status != 'inactive'"/>
-                    <button name="action_inactive" type="object" string="Inactive" class="oe_highlight" invisible="status != 'active'"/>
-                    <button name="action_retired" type="object" string="Retired" class="btn-danger" invisible="status == 'retired'"/>
-                    <button name="action_reset_draft" type="object" string="Reset to Active" invisible="status != 'retired'"/>
+                    <button name="action_active" type="object" string="Active" class="oe_highlight"
+                            invisible="status != 'inactive'"/>
+                    <button name="action_inactive" type="object" string="Inactive" class="oe_highlight"
+                            invisible="status != 'active'"/>
+                    <button name="action_retired" type="object" string="Retired" class="btn-danger"
+                            invisible="status == 'retired'"/>
+                    <button name="action_reset_draft" type="object" string="Reset to Active"
+                            invisible="status != 'retired'"/>
                     <field name="status" widget="statusbar" statusbar_visible="active,inactive,retired"/>
                 </header>
                 <sheet>
@@ -49,10 +53,12 @@
                     </group>
                     <notebook>
                         <page string="Address">
-                            <field name="address" nolabel="1" placeholder="Enter address..." style="width:100%; min-height:150px;"/>
+                            <field name="address" nolabel="1" placeholder="Enter address..."
+                                   style="width:100%; min-height:150px;"/>
                         </page>
                         <page string="Notes">
-                            <field name="note" nolabel="1" placeholder="Enter notes..." style="width:100%; min-height:150px;"/>
+                            <field name="note" nolabel="1" placeholder="Enter notes..."
+                                   style="width:100%; min-height:150px;"/>
                         </page>
                     </notebook>
                 </sheet>
@@ -73,11 +79,14 @@
                 <field name="department_ids"/>
                 <field name="start_date"/>
                 <field name="status"/>
+                <field name="theme_primary"/>
+                <field name="theme_secondary"/>
+                <field name="text_color_primary"/>
                 <templates>
                     <t t-name="card">
                         <div class="oe_kanban_global_click card border-0 shadow rounded-4 overflow-hidden">
-                            <div class="card-header text-center text-white py-4"
-                                 style="background: linear-gradient(135deg,#2d358e,#4f5bd5);border-radius: 24px 24px 0 0;box-shadow: 0 4px 12px rgba(0,0,0,.15);">
+                            <div class="card-header text-center text-white py-4" t-attf-style="background: linear-gradient(135deg,#{record.theme_primary.raw_value},#{record.theme_secondary.raw_value});
+                                    color: #{record.text_color_primary.raw_value};">
                                 <h4 class="mb-0">
                                     <i class="fa fa-user-circle me-2 fa-3x text-white" title="User"/>
                                     <h3 class="md-0 fw-bold text-white mt-2">
@@ -90,39 +99,41 @@
                             </div>
                             <div class="card-body">
                                 <div class="mb-3 text-end text-white">
-                                    <span class="badge rounded-pill bg-primary fs-6 px-3 py-2">
+                                    <span class="rounded-pill fs-6 px-3 py-2">
                                         <i class="fa fa-person-shelter me-1" title="Floor"/>
-                                        <field name="status"/>
+                                        <field name="status" widget="badge" decoration-success="status == 'active'"
+                                               decoration-warning="status == 'draft'"
+                                               decoration-danger="status == 'inactive'"/>
                                     </span>
                                 </div>
                                 <div class="mb-2">
                                     <i class="fa fa-user me-2" title="Venus Mars"/>
-                                    <strong>Code: </strong>
+                                    <strong>Code:</strong>
                                     <field name="teacher_code"/>
                                 </div>
                                 <div class="mb-2">
                                     <i class="fa fa-venus-mars me-2" title="Venus Mars"/>
-                                    <strong>Gender: </strong>
+                                    <strong>Gender:</strong>
                                     <field name="gender"/>
                                 </div>
                                 <div class="mb-2">
                                     <i class="fa fa-envelope text-primary me-2" title="Envelope"/>
-                                    <strong>Email: </strong>
+                                    <strong>Email:</strong>
                                     <field name="email"/>
                                 </div>
                                 <div class="mb-2">
                                     <i class="fa fa-phone me-2 text-primary" title="Phone"/>
-                                    <strong>Phone: </strong>
+                                    <strong>Phone:</strong>
                                     <field name="phone"/>
                                 </div>
                                 <div class="mb-2">
                                     <i class="fa fa-building me-2 text-primary" title="Building"/>
-                                    <strong>Department: </strong>
+                                    <strong>Department:</strong>
                                     <field name="department_ids"/>
                                 </div>
                                 <div class="mb-2">
                                     <i class="fa fa-calendar me-2 text-primary" title="Calendar"/>
-                                    <strong>Start Date: </strong>
+                                    <strong>Start Date:</strong>
                                     <field name="start_date"/>
                                 </div>
                                 <div class="card-footer bg-light text-center">
@@ -139,29 +150,27 @@
             </kanban>
         </field>
     </record>
-<!--    <record id="view_school_teacher_search" model="ir.ui.view">-->
-<!--        <field name="name">school.teacher.search</field>-->
-<!--        <field name="model">school.teacher</field>-->
-<!--        <field name="arch" type="xml">-->
-<!--            <search string="Search Teacher">-->
-<!--                <field name="name"/>-->
-<!--                <field name="status"/>-->
-<!--                <field name="gender"/>-->
-<!--                <filter string="Draft" name="draft" domain="[('status','=','draft')]"/>-->
-<!--                <filter string="Enrolled" name="enrolled" domain="[('status','=','enrolled')]"/>-->
-<!--                <filter string="Graduated" name="graduated" domain="[('status','=','graduated')]"/>-->
-<!--                <filter string="Cancelled" name="cancelled" domain="[('status','=','cancelled')]"/>-->
-<!--                <separator/>-->
-<!--                <group expand="0" string="Group By">-->
-<!--                    <filter string="Status" name="group_status" context="{'group_by':'status'}"/>-->
-<!--                </group>-->
-<!--                <searchpanel>-->
-<!--                    <field name="status" string="Status" enable_counters="1"/>-->
-<!--                    <field name="gender" string="Gender" enable_counters="1"/>-->
-<!--                </searchpanel>-->
-<!--            </search>-->
-<!--        </field>-->
-<!--    </record>-->
+    <record id="view_school_teacher_search" model="ir.ui.view">
+        <field name="name">school.teacher.search</field>
+        <field name="model">school.teacher</field>
+        <field name="arch" type="xml">
+            <search string="Search Teacher">
+                <field name="name"/>
+                <field name="status"/>
+                <field name="gender"/>
+                <filter string="Draft" name="draft" domain="[('status','=','draft')]"/>
+                <filter string="Enrolled" name="enrolled" domain="[('status','=','enrolled')]"/>
+                <filter string="Graduated" name="graduated" domain="[('status','=','graduated')]"/>
+                <filter string="Cancelled" name="cancelled" domain="[('status','=','cancelled')]"/>
+                <separator/>
+                <filter string="Status" name="group_status" context="{'group_by':'status'}"/>
+                <searchpanel>
+                    <field name="status" string="Status" enable_counters="1"/>
+                    <field name="gender" string="Gender" enable_counters="1"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
     <record id="action_school_teacher" model="ir.actions.act_window">
         <field name="name">Teachers</field>
         <field name="res_model">school.teacher</field>

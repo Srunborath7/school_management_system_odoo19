@@ -24,7 +24,23 @@ class Teacher(models.Model):
         ('retired', 'Retired'),
     ], string="Status", default='active', tracking=True)
     note = fields.Char(string="Note", tracking=True)
-    
+    theme_primary = fields.Char(compute='_compute_theme_colors')
+    theme_secondary = fields.Char(compute='_compute_theme_colors')
+    text_color_primary = fields.Char(compute='_compute_theme_colors')
+    text_color_secondary = fields.Char(compute='_compute_theme_colors')
+
+    @api.depends()
+    def _compute_theme_colors(self):
+        theme = self.env['school.setting'].search(
+            [('active', '=', True)],
+        )
+
+        for rec in self:
+            rec.theme_primary = theme.primary_color
+            rec.theme_secondary = theme.secondary_color
+            rec.text_color_primary = theme.text_color_primary
+            rec.text_color_secondary = theme.text_color_secondary
+
     def action_active(self):
         self.write({'status': 'active'})
         self.message_post(body="Student status changed to Active")

@@ -19,6 +19,24 @@ class Course(models.Model):
         "UNIQUE(code)",
         "Course Code must be unique!",
     )
+
+    theme_primary = fields.Char(compute='_compute_theme_colors')
+    theme_secondary = fields.Char(compute='_compute_theme_colors')
+    text_color_primary = fields.Char(compute='_compute_theme_colors')
+    text_color_secondary = fields.Char(compute='_compute_theme_colors')
+
+    @api.depends()
+    def _compute_theme_colors(self):
+        theme = self.env['school.setting'].search(
+            [('active', '=', True)],
+        )
+
+        for rec in self:
+            rec.theme_primary = theme.primary_color
+            rec.theme_secondary = theme.secondary_color
+            rec.text_color_primary = theme.text_color_primary
+            rec.text_color_secondary = theme.text_color_secondary
+
     @api.model_create_multi
     def create(self, vals_list):
 

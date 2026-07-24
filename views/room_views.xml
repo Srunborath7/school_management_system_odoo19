@@ -62,6 +62,30 @@
             </form>
         </field>
     </record>
+
+    <record id="view_school_room_search" model="ir.ui.view">
+        <field name="name">school.room.search</field>
+        <field name="model">school.room</field>
+        <field name="arch" type="xml">
+            <search string="Class Group">
+                <field name="room_type_id"/>
+                <field name="status"/>
+                <filter string="Available" name="available" domain="[('status','=','available')]"/>
+                <filter string="Occupied" name="occupied" domain="[('status','=','occupied')]"/>
+                <filter string="Under Maintenance" name="maintenance" domain="[('status','=','maintenance')]"/>
+                <filter string="Reserved" name="reserved" domain="[('status','=','reserved')]"/>
+                <filter string="Inactive" name="inactive" domain="[('status','=','inactive')]"/>
+                <filter string="Group by Status" name="group_status" context="{'group_by': 'status'}"/>
+                <filter string="Room" name="room_type_id" context="{'group_by':'room_type_id'}"/>
+                <separator/>
+                <searchpanel>
+                    <field name="status" string="Status" enable_counters="1"/>
+                    <field name="room_type_id" string="Room" enable_counters="1"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+
     <record id="action_school_room" model="ir.actions.act_window">
         <field name="name">Rooms</field>
         <field name="res_model">school.room</field>
