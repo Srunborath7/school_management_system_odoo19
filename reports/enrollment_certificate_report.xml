@@ -7,6 +7,8 @@
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">school_management_system.report_enrollment_certificate</field>
         <field name="report_file">school_management_system.report_enrollment_certificate</field>
+        <field name="binding_model_id" ref="model_school_enrollment"/>
+        <field name="binding_type">report</field>
         <field name="print_report_name">'Certificate - %s' % (object.student_id.name or 'Student')</field>
     </record>
 

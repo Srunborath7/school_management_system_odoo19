@@ -1,80 +1,117 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <record id="seq_school_course" model="ir.sequence">
-        <field name="name">Course Sequence</field>
-        <field name="code">school.course</field>
-        <field name="prefix">CS</field>
-        <field name="padding">4</field>
-    </record>
+    <data noupdate="1">
 
-    <record id="seq_school_student_registry" model="ir.sequence">
-        <field name="name">Student Sequence</field>
-        <field name="code">school.student.registry</field>
-        <field name="prefix">STR/%(year)s/%(month)s/</field>
-        <field name="padding">5</field>
-        <field name="number_increment">1</field>
-        <field name="number_next">1</field>
-    </record>
+        <!-- Course -->
+        <record id="seq_school_course" model="ir.sequence">
+            <field name="name">Course Sequence</field>
+            <field name="code">school.course</field>
+            <field name="prefix">CS</field>
+            <field name="padding">4</field>
+            <field name="number_increment">1</field>
+            <field name="number_next">1</field>
+        </record>
 
-    <record id="seq_school_enrollment" model="ir.sequence">
-        <field name="name">Enrollment Sequence</field>
-        <field name="code">school.enrollment</field>
-        <field name="prefix">ENR/%(year)s/%(month)s/</field>
-        <field name="padding">5</field>
-        <field name="number_next">1</field>
-    </record>
+        <!-- Student -->
+        <record id="seq_school_student_registry" model="ir.sequence">
+            <field name="name">Student Sequence</field>
+            <field name="code">school.student.registry</field>
+            <field name="prefix">STR/%(year)s/%(month)s/</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+            <field name="number_next">1</field>
+        </record>
 
-    <record id="seq_school_teacher" model="ir.sequence">
-        <field name="name">Teacher Sequence</field>
-        <field name="code">school.teacher</field>
-        <field name="prefix">TEC/</field>
-        <field name="padding">3</field>
-        <field name="number_next">1</field>
-    </record>
+        <!-- Enrollment -->
+        <record id="seq_school_enrollment" model="ir.sequence">
+            <field name="name">Enrollment Sequence</field>
+            <field name="code">school.enrollment</field>
+            <field name="prefix">ENR/%(year)s/%(month)s/</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+            <field name="number_next">1</field>
+        </record>
 
-     <record id="seq_school_curriculum" model="ir.sequence">
-        <field name="name">Curriculum Sequence</field>
-        <field name="code">school.curriculum</field>
-         <field name="prefix">SCR</field>
-        <field name="padding">5</field>
-        <field name="number_next">1</field>
-    </record>
+        <!-- Teacher -->
+        <record id="seq_school_teacher" model="ir.sequence">
+            <field name="name">Teacher Sequence</field>
+            <field name="code">school.teacher</field>
+            <field name="prefix">TEC/</field>
+            <field name="padding">3</field>
+            <field name="number_increment">1</field>
+            <field name="number_next">1</field>
+        </record>
 
-    <record id="seq_school_academic_program" model="ir.sequence">
-        <field name="name">Academic Program Code</field>
-        <field name="code">school.academic.program</field>
-        <field name="padding">3</field>
-    </record>
+        <!-- Curriculum -->
+        <record id="seq_school_curriculum" model="ir.sequence">
+            <field name="name">Curriculum Sequence</field>
+            <field name="code">school.curriculum</field>
+            <field name="prefix">SCR</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+            <field name="number_next">1</field>
+        </record>
 
-     <record id="seq_purchase_request" model="ir.sequence">
-        <field name="name">Purchase Request</field>
-        <field name="code">school.purchase.request</field>
-        <field name="prefix">PRC/</field>
-        <field name="padding">5</field>
-    </record>
+        <!-- Curriculum Price -->
+        <record id="seq_school_curriculum_price" model="ir.sequence">
+            <field name="name">Curriculum Price Sequence</field>
+            <field name="code">school.curriculum.price</field>
+            <field name="prefix">SCP</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+            <field name="number_next">1</field>
+        </record>
 
-     <record id="seq_school_timetable" model="ir.sequence">
-        <field name="name">School Timetable</field>
-        <field name="code">school.timetable</field>
-        <field name="prefix">TT/%(year)s/</field>
-        <field name="padding">4</field>
-        <field name="number_increment">1</field>
-        <field name="number_next">1</field>
-        <field name="implementation">standard</field>
-    </record>
+        <!-- Academic Program -->
+        <record id="seq_school_academic_program" model="ir.sequence">
+            <field name="name">Academic Program Sequence</field>
+            <field name="code">school.academic.program</field>
+            <field name="prefix">ACP</field>
+            <field name="padding">3</field>
+            <field name="number_increment">1</field>
+            <field name="number_next">1</field>
+        </record>
 
-     <record id="seq_school_schedule" model="ir.sequence">
-        <field name="name">School Schedule</field>
-        <field name="code">school.schedule</field>
-        <field name="prefix">SSH/</field>
-        <field name="padding">5</field>
-    </record>
+        <!-- Purchase Request -->
+        <record id="seq_purchase_request" model="ir.sequence">
+            <field name="name">Purchase Request Sequence</field>
+            <field name="code">school.purchase.request</field>
+            <field name="prefix">PRC/</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+            <field name="number_next">1</field>
+        </record>
 
-    <record id="seq_school_attendance" model="ir.sequence">
-        <field name="name">School Attendance</field>
-        <field name="code">school.attendance</field>
-        <field name="prefix">SA/</field>
-        <field name="padding">5</field>
-    </record>
+        <!-- Timetable -->
+        <record id="seq_school_timetable" model="ir.sequence">
+            <field name="name">School Timetable Sequence</field>
+            <field name="code">school.timetable</field>
+            <field name="prefix">TT/%(year)s/</field>
+            <field name="padding">4</field>
+            <field name="number_increment">1</field>
+            <field name="number_next">1</field>
+            <field name="implementation">standard</field>
+        </record>
 
+        <!-- Schedule -->
+        <record id="seq_school_schedule" model="ir.sequence">
+            <field name="name">School Schedule Sequence</field>
+            <field name="code">school.schedule</field>
+            <field name="prefix">SSH/</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+            <field name="number_next">1</field>
+        </record>
+
+        <!-- Attendance -->
+        <record id="seq_school_attendance" model="ir.sequence">
+            <field name="name">School Attendance Sequence</field>
+            <field name="code">school.attendance</field>
+            <field name="prefix">SA/</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+            <field name="number_next">1</field>
+        </record>
+
+    </data>
 </odoo>

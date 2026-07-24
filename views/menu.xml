@@ -31,6 +31,13 @@
             action="action_school_curriculum"
             sequence="2"/>
     <menuitem
+            id="menu_school_curriculum_price"
+            name="School Curriculum Price"
+            parent="menu_school_enroll"
+            action="action_school_curriculum_price"
+            sequence="3"/>
+
+    <menuitem
             id="menu_school_academic"
             name="Academic"
             parent="menu_school_management_root"
@@ -133,13 +140,21 @@
             action="action_res_partner"
             sequence="3"
     />
+    <menuitem name="Products" id="menu_school_product" parent="menu_school_orders"
+              action="action_school_product_template" sequence="4"/>
     <menuitem
             id="menu_school_purchase_analysis_report"
             name="Purchase Analysis"
             parent="menu_school_orders"
             action="action_purchase_analysis_report"
-            sequence="4"
+            sequence="5"
     />
+    <menuitem
+            id="menu_school_payment"
+            name="School Payment"
+            parent="menu_school_management_root"
+            action="action_school_payment"
+            sequence="80"/>
     <menuitem
             id="menu_school_schedule_root"
             name="School Schedules"

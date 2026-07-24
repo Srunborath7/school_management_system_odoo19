@@ -1,0 +1,77 @@
+.o_purchase_dashboard {
+
+    display:flex;
+    gap:15px;
+    padding:15px;
+
+}
+
+
+
+.dashboard_card {
+
+    flex:1;
+
+    padding:20px;
+
+    border-radius:10px;
+
+    color:white;
+
+    text-align:center;
+
+}
+
+
+
+.dashboard_card .number {
+
+    font-size:32px;
+
+    font-weight:bold;
+
+}
+
+
+
+.dashboard_card .title {
+
+    margin-top:10px;
+
+}
+
+
+
+.draft {
+
+    background:#3498db;
+
+}
+
+
+.sent {
+
+    background:#f39c12;
+
+}
+
+
+.purchase {
+
+    background:#2ecc71;
+
+}
+
+
+.done {
+
+    background:#9b59b6;
+
+}
+
+
+.cancel {
+
+    background:#e74c3c;
+
+}

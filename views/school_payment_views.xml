@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="sale_order_school_payment_form" model="ir.ui.view">
+        <field name="name">sale.order.school.payment.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+
+                <field name="student_ids" string="Student" required="1"/>
+
+                <field name="payment_type"/>
+
+                <field name="payment_term"
+                       invisible="payment_type != 'payment_term'"/>
+
+            </xpath>
+
+            <xpath expr="//field[@name='partner_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='payment_term_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="School Payment">
+                    <group>
+                        <field name="curriculum_ids"/>
+                    </group>
+                </page>
+            </xpath>
+            <!-- Show Curriculum -->
+            <xpath expr="//field[@name='order_line']/list/field[@name='product_template_id']"
+                   position="after">
+                <field name="curriculum_ids"
+                       column_invisible="parent.payment_type != 'payment_term'"/>
+            </xpath>
+
+            <!-- Hide Product Variant -->
+            <xpath expr="//field[@name='order_line']/list/field[@name='product_id']"
+                   position="attributes">
+                <attribute name="column_invisible">
+                    parent.payment_type == 'payment_term'
+                </attribute>
+            </xpath>
+
+            <!-- Hide Product -->
+            <xpath expr="//field[@name='order_line']/list/field[@name='product_template_id']"
+                   position="attributes">
+                <attribute name="column_invisible">
+                    parent.payment_type == 'payment_term'
+                </attribute>
+            </xpath>
+
+            <!-- Hide Description -->
+            <xpath expr="//field[@name='order_line']/list/field[@name='name']"
+                   position="attributes">
+                <attribute name="readonly">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_school_payment" model="ir.actions.act_window">
+        <field name="name">School Payment</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

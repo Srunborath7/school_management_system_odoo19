@@ -30,7 +30,7 @@
                     <button name="action_closed" type="object" string="Close" invisible="status != 'inactive'"/>
                     <button name="action_reset_draft" type="object" string="Reset" invisible="status == 'draft'"/>
                     <field name="status" widget="statusbar" statusbar_visible="draft,active,closed,inactive"/>
-                    <button name="%(action_report_enrollment_certificate)d" type="action" class="btn-primary" string="Print Certificate">Print Certificate</button>
+                    <button name="%(action_report_enrollment_certificate)d" type="action" class="btn-primary" string="Print Certificate" invisible="status != 'active'">Print Certificate</button>
                 </header>
                 <sheet>
                     <h1><field name="name"/></h1>

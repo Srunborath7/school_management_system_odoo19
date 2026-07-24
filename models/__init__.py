@@ -1,5 +1,4 @@
-from . import student_registry
-from . import course
+from . import student_registry, course
 from . import department
 from . import teacher
 from . import academic_year
@@ -21,3 +20,6 @@ from . import school_vendors
 from . import purchase_order
 from . import purchase_analysis_report
 from . import school_attendace
+from . import school_products
+from . import school_payment
+from . import school_curriculum_price

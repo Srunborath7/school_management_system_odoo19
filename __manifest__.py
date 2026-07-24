@@ -52,11 +52,18 @@
         'views/school_vendors_views.xml',
         'views/purchase_order_views.xml',
         'views/purchase_analysis_report_views.xml',
+        'views/school_product_views.xml',
+        'views/school_payment_views.xml',
+        'views/school_curriculum_price_views.xml',
         'views/menu.xml',
     ],
     'assets': {
         'web.assets_backend': [
             'school_management_system/static/src/css/timetable_calendar.css',
+            "school_management_system/static/src/js/purchase_dashboard_controller.js",
+            "school_management_system/static/src/js/purchase_dashboard_view.js",
+            "school_management_system/static/src/xml/purchase_dashboard.xml",
+            "school_management_system/static/src/css/purchase_dashboard.css",
         ],
     },
     'application': True,

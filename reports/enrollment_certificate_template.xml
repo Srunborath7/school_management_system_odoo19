@@ -154,7 +154,7 @@
                                 </td>
 
                                 <td>
-                                    <span t-field="o.create_date"/>
+                                    <span t-field="o.create_date" t-options='{"widget": "date"}'/>
                                 </td>
                             </tr>
 
@@ -223,7 +223,7 @@
 
                             Issued Date:
 
-                            <span t-field="o.create_date"/>
+                            <span t-field="o.create_date" t-options='{"widget": "date"}'/>
 
                         </div>
 

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="school_management_system.PurchaseDashboard">
+
+    <div class="o_purchase_dashboard">
+
+        <div class="card draft">
+            <h2><t t-esc="state.draft"/></h2>
+            <span>Draft RFQ</span>
+        </div>
+
+        <div class="card sent">
+            <h2><t t-esc="state.sent"/></h2>
+            <span>Sent RFQ</span>
+        </div>
+
+        <div class="card purchase">
+            <h2><t t-esc="state.purchase"/></h2>
+            <span>Purchase Orders</span>
+        </div>
+
+        <div class="card done">
+            <h2><t t-esc="state.done"/></h2>
+            <span>Received</span>
+        </div>
+
+        <div class="card cancel">
+            <h2><t t-esc="state.cancel"/></h2>
+            <span>Cancelled</span>
+        </div>
+
+    </div>
+
+</t>
+</templates>
